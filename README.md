@@ -32,4 +32,11 @@ A lender has a book to share. A simple post with:
 h2. Simple userflow: Book want
 
 
+/***************************************************************************
+****************************About APP SETUP***************************************
+****************************************************************************/
+# Technologies used
+  1. FE/BE - React/Firebase
+  2. UI Library: Material UI
+   
 
