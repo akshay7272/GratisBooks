@@ -1,0 +1,10 @@
+@media (min-width:900px) {
+    .desktop{
+        display: block;
+    }
+}
+@media (max-width:899px) {
+    .desktop{
+        display: none;
+    }
+}

@@ -1,32 +1,30 @@
 import React from 'react';
-import {Link, Route, Routes, BrowserRouter as Router} from 'react-router-dom';
+import { Route, Routes, BrowserRouter as Router} from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
+import Account from "./Account";
 import DonateBook from './DonateBook';
+import Signup from './register';
+import Navbar from "./Navbar";
+import Protected from "./Protected";
+import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <div className="App">
-      Header
-      <br/>
-      <br/>
+     <AuthContextProvider>
        <Router>
-        <div>
-          <Link to="/" style={{marginRight: 10}}>Home</Link>
-          <Link to="/donate" style={{marginRight: 10}}>Donate</Link>
-          <Link to="/login">Login</Link>
-        </div>
-         <br/>
+        <Navbar />
           <Routes>
-            <Route element={<Home/>} path="/"></Route>
-            <Route element={<DonateBook/>} path="/donate"></Route>
+            <Route element={<Protected><Home/></Protected>} path="/"></Route>
+            <Route element={<Protected><DonateBook/></Protected>} path="/donate"></Route>
             <Route element={<Login/>} path="/login"></Route>
+            <Route element={<Signup/>} path="/register"></Route>
+            <Route element={<Protected><Account/></Protected>} path="/account"></Route>
           </Routes>
-
       </Router>
-      <br/>
-      <br/>
-      Footer
+      </AuthContextProvider>
+      <br />
     </div>
   );
 }
