@@ -7,6 +7,7 @@ import DonateBook from './DonateBook';
 import Signup from './register';
 import Navbar from "./Navbar";
 import Protected from "./Protected";
+import Update from './update';
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
             <Route element={<Login/>} path="/login"></Route>
             <Route element={<Signup/>} path="/register"></Route>
             <Route element={<Protected><Account/></Protected>} path="/account"></Route>
+            <Route element={<Protected><Update/></Protected>} path="/Update"></Route>
           </Routes>
       </Router>
       </AuthContextProvider>

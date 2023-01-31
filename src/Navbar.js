@@ -100,15 +100,15 @@ const Navbar = () => {
                   <Typography href="/account">Profile</Typography>
               </MenuItem>
             </Menu>
-          <Link onClick={handlelogo}>
-            <Box
-              className='mobile'
-              component="img"
-              sx={{ height: 40, marginTop: 0.5 }}
-              alt="Logo"
-              src={logo}
-            />
-          </Link>
+            <Link onClick={handlelogo}>
+              <Box
+                className='mobile'
+                component="img"
+                sx={{ height: 40, marginTop: 0.5 }}
+                alt="Logo"
+                src={logo}
+              />
+            </Link>
           </Box>
           <Link onClick={handlelogo}>
             <Box

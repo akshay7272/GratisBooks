@@ -1,5 +1,5 @@
-import React, { useState} from "react";
-import { collection, addDoc} from "firebase/firestore";
+import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import MuiPhoneNumber from "material-ui-phone-number-2";
 import { db } from "./firebase";
@@ -7,12 +7,9 @@ import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { storage } from "./firebase";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 function DonateBook() {
   const { user } = UserAuth();
@@ -22,9 +19,8 @@ function DonateBook() {
   const [phone, setPhone] = useState("");
   const [cover, setCover] = useState();
   const navigate = useNavigate();
-
+  // Getting book Image Upload from Local computer
   const uploadImage = (e) => {
-
     const imageRef = ref(storage, `items/${Date.now()}`);
     uploadBytes(imageRef, e.target.files[0]).then((snapshot) => {
       console.log(snapshot, "snapshot");
@@ -36,6 +32,7 @@ function DonateBook() {
       );
     });
   };
+  // Adding book data to Firebase Firestore
   const postData = async () => {
     if (!title || !author || !yop || !phone || !cover) {
       alert("please fill all fields");
@@ -49,7 +46,10 @@ function DonateBook() {
         yop,
         phone,
         uid: user.uid,
+        photo: user.photoURL,
         cover,
+        likes: 0,
+        comments: [],
         isBooked: false,
       });
       alert("posted successfully");
@@ -58,93 +58,92 @@ function DonateBook() {
       alert("someThing went wrong. try again");
     }
   };
-
+  // Setting phone no. value
   const handleOnChange = (value) => {
     setPhone(value);
   };
   return (
     <>
-      <div>DonateBook Page Data</div>
-
-      <Box>
+      <Box sx={{display: "flex", flexDirection: "column", alignItems:"center", paddingTop:"2rem"}}>
+        <Typography variant="h4" component="h2" >Donate Book</Typography>
         <TextField
           margin="normal"
           required
-          fullWidth
           label="Book title"
           name="book title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           autoComplete=""
           autoFocus
+          sx={{width:"80%"}}
         />
         <TextField
           margin="normal"
           required
-          fullWidth
           value={author}
           onChange={(text) => setAuthor(text.target.value)}
           label="Author"
           name="author"
           autoComplete=""
           autoFocus
+          sx={{width:"80%"}}
         />
         <TextField
           margin="normal"
           required
-          fullWidth
           value={yop}
           onChange={(text) => setYop(text.target.value)}
           label="Year of Publication"
           name="email"
           autoComplete=""
           autoFocus
+          sx={{width:"80%"}}
         />
         <MuiPhoneNumber
           margin="normal"
+          required
           defaultCountry={"in"}
           value={phone}
           onChange={handleOnChange}
-          fullWidth
           variant="outlined"
           label="Phone Number"
+          sx={{width:"80%"}}
         />
-        <Button variant="contained" margin="normal" component="label">
-          Upload Image
-          <input
-            id="photo"
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={uploadImage}
-          />
-        </Button>
-        {cover && (
-          <>
-            <img
-              src={cover}
-              alt="gasa"
-              height="50"
-              width="50"
-              style={{ objectFit: "contain" }}
+        <Box sx={{display:"flex" , flexDirection:"column-reverse", alignItems:"center", justifyContent:"center"}}>
+          <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"50%"}}>
+            <input
+              id="photo"
+              accept="image/*"
+              type="file"
+              onChange={uploadImage}
             />
-            <Button
-              variant="contained"
-              onClick={() => {
-                setCover("");
-              }}
-            >
-              Delete
             </Button>
-          </>
-        )}
-        <br />
+            {cover && (
+              <>
+                <img
+                  src={cover}
+                  alt="cover image"
+                  width="40%"
+                  style={{ objectFit: "contain" }}
+                />
+                {/* <Button
+                  variant="contained"
+                  onClick={() => {
+                    setCover("");
+                  }}
+                  sx={{width: "8%"}}
+                >
+                  Delete
+                </Button> */}
+              </>
+            )}
+        </Box>
         <Button
           variant="contained"
           margin="normal"
           type="submit"
           onClick={postData}
+          sx={{marginTop:"16px", marginBottom:"8px",width:"20%"}}
         >
           Submit
         </Button>

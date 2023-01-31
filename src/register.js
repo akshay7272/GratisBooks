@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { UserAuth } from "./context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 import { isValidEmail } from "./utility";
@@ -29,55 +29,46 @@ const theme = createTheme();
 
 export default function Signup() {
 
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [fullname, setFullname] = useState("");
-    const [password, setPassword] = useState("");
-    const [setErrorMsg] = useState("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [setErrorMsg] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const { user, signUp } = UserAuth();
 
-    const { user, signUp } = UserAuth();
+  if (user) navigate("/");
 
-    if (user) navigate("/");
-
-    const showError = (error) => {
-      setErrorMsg(error);
-      setTimeout(() => {
-        setErrorMsg("");
-      }, 3000);
-    };
+  const showError = (error) => {
+    setErrorMsg(error);
+    setTimeout(() => {
+      setErrorMsg("");
+    }, 3000);
+  };
  
-    const onSubmit = async (e) => {
-      e.preventDefault()
-      if (!isValidEmail(email)) showError("Invalid email address");
-      else if (password.length < 6)
-        showError("Password must be at least 6 characters");
-      if (isValidEmail(email) && password.length > 6) {
-        const userQuery = query(
-          collection(db, "user"),
-          where("username", "==", email)
-        );
-
-        const users = await getDocs(userQuery);
-        if (!users.empty) {
-          setErrorMsg("User with this user already exists");
-          navigate("/login");
-        }
-        if (users.empty) {
-          const user = await signUp(email, password, fullname);
-          if (user) {
-            setEmail("");
-            setFullname("");
-            setPassword("");
-            navigate("/");
-          }
-
-          if (!user)
-            showError(
-              "Sorry, your password was incorrect. Please double-check your password."
-            );
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    if (!isValidEmail(email)) showError("Invalid email address");
+    else if (password.length < 6)
+      showError("Password must be at least 6 characters");
+    if (isValidEmail(email) && password.length > 6) {
+      if (user) {
+        setErrorMsg("User with this user already exists");
+        navigate("/login");
+      }
+      else{
+        const user = await signUp(email, password);
+        if (user) {
+          setEmail("");
+          setPassword("");
+          navigate("/");
         }
       }
     }
+  }
+
+  useEffect(() => {
+    setDisabled(email.length > 0 && password.length > 0 ? false : true);
+  }, [email, password])
   
   return (
     <ThemeProvider theme={theme}>
@@ -102,17 +93,6 @@ export default function Signup() {
           </Typography>
           <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="fullname"
-                  label="Full Name"
-                  name="fullname"
-                  autoComplete="fullname"
-                  onChange={(e) => setFullname(e.target.value)} 
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required

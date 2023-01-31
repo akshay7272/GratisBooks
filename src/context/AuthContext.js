@@ -43,10 +43,9 @@ export const AuthContextProvider = ({ children }) => {
           const userRef = await getDoc(doc(db, `user/${user.uid}`));
           setUser({
             ...user,
-            displayName: userRef.data().fullName || null,
-            photoURL: userRef.data().photoURL || null,
-            username: userRef.data().username || null,
-            isVerified: userRef.data().isVerified || false,
+            displayName: userRef.data()?.fullName || null,
+            photoURL: userRef.data()?.photoURL || null,
+            isVerified: userRef.data()?.isVerified || false,
           });
           setLoading(false);
         }
@@ -87,7 +86,7 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const signUp = async (email, password, fullname) => {
+  const signUp = async (email, password) => {
     try {
       const { user } = await createUserWithEmailAndPassword(
         auth,
@@ -101,26 +100,7 @@ export const AuthContextProvider = ({ children }) => {
         // Email sent.
       }).catch((error) => {
         console.log(error)
-      });
-      await setDoc(
-        doc(db, "user/bZdyCDBdUjgxFxhXLRBGzQh05k12"),
-        {
-          followedBy: arrayUnion(user.uid),
-        },
-        {
-          merge: true,
-        }
-      );
-      await setDoc(doc(db, "user", `${user.uid}`), {
-        userId: user.uid,
-        fullName: fullname,
-        photoURL:
-          "https://parkridgevet.com.au/wp-content/uploads/2020/11/Profile-300x300.png",
-        email: user.email,
-        isVerified: false,
-        lastLogin: serverTimestamp(),
-      });
-      return user;
+      })
     } catch (error) {
       console.log(error);
       return error;

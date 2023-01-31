@@ -32,6 +32,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState("");
+  const [disabled, setDisabled] = useState(true);
   
   if (user) navigate("/");
 
@@ -58,7 +59,8 @@ const Login = () => {
               "Sorry, your password was incorrect. Please double-check your password."
             );
         }
-  }
+  };
+  
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -72,6 +74,9 @@ const Login = () => {
     }
   },[user])
 
+  useEffect(() => {
+    setDisabled(email.length > 0 && password.length > 0 ? false : true);
+  }, [email, password]);
 
   return (
     <ThemeProvider theme={theme}>
