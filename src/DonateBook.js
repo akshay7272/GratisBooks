@@ -110,33 +110,14 @@ function DonateBook() {
           sx={{width:"80%"}}
         />
         <Box sx={{display:"flex" , flexDirection:"column-reverse", alignItems:"center", justifyContent:"center"}}>
-          <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"50%"}}>
+          <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"80%"}}>
             <input
               id="photo"
               accept="image/*"
               type="file"
               onChange={uploadImage}
             />
-            </Button>
-            {cover && (
-              <>
-                <img
-                  src={cover}
-                  alt="cover image"
-                  width="40%"
-                  style={{ objectFit: "contain" }}
-                />
-                {/* <Button
-                  variant="contained"
-                  onClick={() => {
-                    setCover("");
-                  }}
-                  sx={{width: "8%"}}
-                >
-                  Delete
-                </Button> */}
-              </>
-            )}
+          </Button>
         </Box>
         <Button
           variant="contained"

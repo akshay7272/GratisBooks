@@ -112,7 +112,7 @@ const Account = () => {
           </Box> */}
         </Container>
         <br/><br/>
-        <Container>
+        <Container sx={{display:"grid", gridTemplateColumns: "auto auto auto"}}>
           {post.length ? (
             post.map((item) => (
               <Card sx={{ maxWidth: 345 }} key={`${item.id}`}>
@@ -121,12 +121,14 @@ const Account = () => {
                   height="194"
                   image={item.data.cover}
                   alt={item.data.title.replace(" ", "_")}
+                  sx={{objectFit:"fill"}}
                 />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     <CardHeader
                       title={`Title: ${item.data.title}`}
                       subheader={`By ${item.data.author} - ${item.data.yop}`}
+                      sx={{display:"grid"}}
                     />
                     <FormGroup>
                       <FormControlLabel
@@ -144,24 +146,26 @@ const Account = () => {
                     </FormGroup>
                   </Typography>
 
-                  <Button
-                    variant="contained"
-                    margin="normal"
-                    component="label"
-                    onClick={() => DeleteItem(item.id, item.data.title)}
-                  >
-                    Delete
-                  </Button>
-                  <Button
-                    variant="contained"
-                    margin="normal"
-                    component="label"
-                    onClick={() =>
-                      navigate(`/account/update/${item.id}`, { state: { item } })
-                    }
-                  >
-                    Edit
-                  </Button>
+                  <Box sx={{display:"flex", justifyContent:"space-between"}}>
+                    <Button
+                      variant="contained"
+                      margin="normal"
+                      component="label"
+                      onClick={() => DeleteItem(item.id, item.data.title)}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="contained"
+                      margin="normal"
+                      component="label"
+                      onClick={() =>
+                        navigate(`/account/update/${item.id}`, { state: { item } })
+                      }
+                    >
+                      Edit
+                    </Button>
+                  </Box>
                 </CardContent>
               </Card>
             ))
