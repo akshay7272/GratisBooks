@@ -8,6 +8,14 @@ import {
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
+import Comments from "./Comments";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+// import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
@@ -119,7 +127,7 @@ export default function Home() {
         {post.length ? (
           post.map((item) => (
             <div className="post-data">
-              <Card sx={{ maxWidth: "350px", boxShadow:"1px 3px 20px rgb(0 0 0 / 0.3)", borderRadius:"10px",margin:"2rem 2rem 0 4rem"}} key={`${item.id}`}>
+              <Card sx={{ maxWidth: "350px",maxHeight:"480px", boxShadow:"1px 3px 20px rgb(0 0 0 / 0.3)", borderRadius:"10px",margin:"2rem 2rem 0 4rem"}} key={`${item.id}`}>
                 <CardMedia
                   component="img"
                   height="194"
@@ -127,23 +135,45 @@ export default function Home() {
                   alt={item.title.replace(" ", "_")}
                   sx={{objectFit:"fill"}}
                 />
+
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     <CardHeader
                       avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                          <>
-                            <img
+                        <>
+                          {item.photo ? (
+                            <Avatar
+                              alt={
+                                item.email
+                                  ? item.email.charAt(0).toUpperCase()
+                                  : ""
+                              }
                               src={item.photo}
-                              width="40"
-                              height="40"
-                              alt={user.email}
+                              sx={{
+                                width: 40,
+                                height: 40,
+                                alignItems: "center",
+                              }}
                             />
-                          </>
-                        </Avatar>
+                          ) : (
+                            <Avatar
+                              alt={
+                                item.email
+                                  ? item.email.charAt(0).toUpperCase()
+                                  : ""
+                              }
+                              src={item.photo ? item.photo : "/alttext"}
+                              sx={{
+                                width: 40,
+                                height: 40,
+                                marginTop: "0.5rem",
+                              }}
+                            />
+                          )}
+                        </>
                       }
                       title={`Title: ${item.title}`}
-                      subheader={`By ${item.title} - ${item.yop}`}
+                      subheader={`By: ${item.author} - ${item.yop}`}
                     />
                   </Typography>
                 </CardContent>

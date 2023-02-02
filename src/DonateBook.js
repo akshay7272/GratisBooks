@@ -3,10 +3,13 @@ import { collection, addDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import MuiPhoneNumber from "material-ui-phone-number-2";
 import { db } from "./firebase";
+import CssBaseline from '@mui/material/CssBaseline';
 import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { storage } from "./firebase";
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
@@ -19,6 +22,7 @@ function DonateBook() {
   const [phone, setPhone] = useState("");
   const [cover, setCover] = useState();
   const navigate = useNavigate();
+  const theme = createTheme();
   // Getting book Image Upload from Local computer
   const uploadImage = (e) => {
     const imageRef = ref(storage, `items/${Date.now()}`);
@@ -64,71 +68,76 @@ function DonateBook() {
   };
   return (
     <>
-      <Box sx={{display: "flex", flexDirection: "column", alignItems:"center", paddingTop:"2rem"}}>
-        <Typography variant="h4" component="h2" >Donate Book</Typography>
-        <TextField
-          margin="normal"
-          required
-          label="Book title"
-          name="book title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          autoComplete=""
-          autoFocus
-          sx={{width:"80%"}}
-        />
-        <TextField
-          margin="normal"
-          required
-          value={author}
-          onChange={(text) => setAuthor(text.target.value)}
-          label="Author"
-          name="author"
-          autoComplete=""
-          autoFocus
-          sx={{width:"80%"}}
-        />
-        <TextField
-          margin="normal"
-          required
-          value={yop}
-          onChange={(text) => setYop(text.target.value)}
-          label="Year of Publication"
-          name="email"
-          autoComplete=""
-          autoFocus
-          sx={{width:"80%"}}
-        />
-        <MuiPhoneNumber
-          margin="normal"
-          required
-          defaultCountry={"in"}
-          value={phone}
-          onChange={handleOnChange}
-          variant="outlined"
-          label="Phone Number"
-          sx={{width:"80%"}}
-        />
-        <Box sx={{display:"flex" , flexDirection:"column-reverse", alignItems:"center", justifyContent:"center"}}>
-          <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"80%"}}>
-            <input
-              id="photo"
-              accept="image/*"
-              type="file"
-              onChange={uploadImage}
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box sx={{display: "flex", flexDirection: "column", alignItems:"center", paddingTop:"2rem"}}>
+            <Typography variant="h4" component="h2" >Donate Book</Typography>
+            <TextField
+              margin="normal"
+              required
+              label="Book title"
+              name="book title"
+              fullWidth
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              autoComplete=""
+              autoFocus
             />
-          </Button>
-        </Box>
-        <Button
-          variant="contained"
-          margin="normal"
-          type="submit"
-          onClick={postData}
-          sx={{marginTop:"16px", marginBottom:"8px",width:"20%"}}
-        >
-          Submit
-        </Button>
-      </Box>
+            <TextField
+              margin="normal"
+              required
+              value={author}
+              fullWidth
+              onChange={(text) => setAuthor(text.target.value)}
+              label="Author"
+              name="author"
+              autoComplete=""
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              value={yop}
+              fullWidth
+              onChange={(text) => setYop(text.target.value)}
+              label="Year of Publication"
+              name="email"
+              autoComplete=""
+              autoFocus
+            />
+            <MuiPhoneNumber
+              margin="normal"
+              required
+              defaultCountry={"in"}
+              fullWidth
+              value={phone}
+              onChange={handleOnChange}
+              variant="outlined"
+              label="Phone Number"
+            />
+            <Box sx={{display:"flex" , flexDirection:"column-reverse", alignItems:"center", justifyContent:"center"}}>
+              <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"80%"}}>
+                <input
+                  id="photo"
+                  accept="image/*"
+                  type="file"
+                  onChange={uploadImage}
+                />
+              </Button>
+            </Box>
+            <Button
+              variant="contained"
+              margin="normal"
+              type="submit"
+              onClick={postData}
+              sx={{marginTop:"16px", marginBottom:"8px"}}
+            >
+              Submit
+            </Button>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }

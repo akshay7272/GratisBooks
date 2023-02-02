@@ -11,3 +11,44 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* login page */
+.sign-in {
+    text-align: center;
+    border: 1px solid darkgrey;
+    width: 20%;
+    margin: auto;
+    background-color: ghostwhite;
+    padding: 20px 0px 50px 0px;
+}
+.g-btn {
+  margin: 0;
+  width: 100% !important;
+  border-radius: 5px !important;
+}
+
+.text-login {
+  font-weight: 100;
+  font-size: larger;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 30px 0px 30px;
+}
+/* homepage css
+.card-items{
+  display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.comment-bd {
+  border:1px solid black;
+  width: 19%;
+  text-align: center;
+  overflow: scroll;
+  height: 555px;
+}
+.post-data{
+  width: 15%;
+} */
