@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import Protected from "./Protected";
 import Update from './update';
 import Comments from "./Comments";
+import UpdateBook from "./UpdateBook";
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route element={<Comments />} path="/comments/:id"></Route>
             <Route element={<Protected><Account/></Protected>} path="/account"></Route>
             <Route element={<Protected><Update/></Protected>} path="/Update"></Route>
+            <Route element={<UpdateBook />} path="/account/update/:id"></Route>
           </Routes>
       </Router>
       </AuthContextProvider>
