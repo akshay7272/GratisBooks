@@ -50,9 +50,7 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {
-    fetchPost();
-  }, []);
+
 
   const [liked, setLiked] = useState({});
   const [comment, setComment] = useState({});
@@ -95,7 +93,6 @@ export default function Home() {
     )
       .then(() => {
         setLiked({ ...liked, [Id]: true });
-        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -114,13 +111,12 @@ export default function Home() {
     )
       .then(() => {
         setLiked({ ...liked, [Id]: false });
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
   useEffect(() => {
-    console.log(comment, "running");
-  });
+    fetchPost();
+  }, [liked,comment]);
   return (
     <>
       <div className="card-items">

@@ -198,7 +198,7 @@ const Account = () => {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Button
-                      variant="outlined"
+                      variant="text"
                       margin="normal"
                       component="label"
                       color="error"
@@ -208,7 +208,7 @@ const Account = () => {
                     </Button>
 
                     <Button
-                      variant="outlined"
+                      variant="text"
                       margin="normal"
                       component="label"
                       onClick={() =>
