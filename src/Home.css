@@ -5,11 +5,15 @@
 
 .MuiCardHeader-title{
     font-weight: bold !important;
+
 }
 
 .MuiCardHeader-subheader{
     font-weight: bold !important;
-    text-overflow: ellipsis;
+}
+
+.MuiCardHeader-action{
+    font-weight: bold !important;
 }
 
 @media (max-width:767px) {

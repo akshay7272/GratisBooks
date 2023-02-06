@@ -227,7 +227,7 @@ const Account = () => {
             <Typography
               variant="h5"
               component="span"
-              style={{ color: "white", margin: "auto" }}
+              style={{ margin: "auto" }}
             >
               You have not donated any book. Please Donate
             </Typography>

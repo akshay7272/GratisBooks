@@ -36,9 +36,6 @@ const Navbar = () => {
   const handleprofile = () => {
     navigate("/account");
   };
-  const handlelogo = () => {
-    navigate("/");
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -88,28 +85,25 @@ const Navbar = () => {
                     display: { xs: "block", md: "none" },
                   }}
                 >
-                  <MenuItem key="Home">
-                    <Typography>
-                      {" "}
-                      <Link to="/" underline="none">
+                  <Link to="/" underline="none">
+                    <MenuItem key="Home">
+                      <Typography>
                         Home
-                      </Link>
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem key="Donate book">
-                    <Link to="/donate">
-                      {" "}
+                      </Typography>
+                    </MenuItem>
+                  </Link>
+                  <Link to="/donate">
+                    <MenuItem key="Donate book">
                       <Typography>Donate Book</Typography>
-                    </Link>
-                  </MenuItem>
-                  <MenuItem key="Profile">
-                    <Link to="/account">
-                      {" "}
+                    </MenuItem>
+                  </Link>
+                  <Link to="/account">
+                    <MenuItem key="Profile">
                       <Typography href="/account">Profile</Typography>
-                    </Link>
-                  </MenuItem>
+                    </MenuItem>
+                  </Link>
                 </Menu>
-                <Link onClick={handlelogo}>
+                <Link to="/">
                   <Box
                     className="mobile"
                     component="img"
@@ -119,78 +113,50 @@ const Navbar = () => {
                   />
                 </Link>
               </Box>
-              <Link onClick={handlelogo}>
+              <Link to="/">
                 <Box
                   className="desktop"
                   component="img"
                   sx={{ height: 54 }}
-                  onClick={handlelogo}
                   alt="Logo"
                   src={logo}
                 />
               </Link>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
                 <MenuItem key="Home">
                   <Typography
                     variant="h5"
                     noWrap
                     component="a"
-                    sx={{
-                      mr: 2,
-                      display: "block",
-                      color: "#ffff",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <Link
-                      to="/"
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
+                    sx={{ mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
                       Home
-                    </Link>
-                  </Typography>
-                </MenuItem>
-                <MenuItem key="Donate book">
-                  <Typography
-                    variant="h5"
-                    noWrap
-                    component="a"
-                    sx={{
-                      mr: 2,
-                      display: "block",
-                      color: "#ffff",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {" "}
-                    <Link
-                      to="/donate"
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      Donate Book
-                    </Link>
-                  </Typography>
-                </MenuItem>
-                <MenuItem key="Profile">
-                  <Typography
-                    variant="h5"
-                    noWrap
-                    component="a"
-                    sx={{
-                      mr: 2,
-                      display: "block",
-                      color: "#ffff",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <Link
-                      to="/account"
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      Profile
-                    </Link>
-                  </Typography>
-                </MenuItem>
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/donate" style={{ textDecoration: "none", color: "white" }}>
+                  <MenuItem key="Donate book">
+                    <Typography
+                      variant="h5"
+                      noWrap
+                      component="a"
+                      sx={{mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
+                        Donate Book
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link to="/account" style={{ textDecoration: "none", color: "white" }}>
+                  <MenuItem key="Profile">
+                    <Typography
+                      variant="h5"
+                      noWrap
+                      component="a"
+                      sx={{ mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
+                        Profile
+                      
+                    </Typography>
+                  </MenuItem>
+                </Link>
               </Box>
 
               <Box sx={{ flexGrow: 0 }}>
