@@ -108,7 +108,6 @@ const Account = () => {
               variant="h4"
               component="h2"
               sx={{ textAlign: "center" }}
-              style={{ color: "white" }}
             >
               Welcome, {user.displayName}
             </Typography>
@@ -117,7 +116,6 @@ const Account = () => {
               variant="h4"
               component="h2"
               sx={{ textAlign: "center" }}
-              style={{ color: "white" }}
             >
               Welcome
             </Typography>
@@ -130,7 +128,6 @@ const Account = () => {
               display: "flex",
               flexDirection: "column",
             }}
-            style={{ color: "white" }}
           >
             {user.email && (
               <Typography variant="h5" component="h2">
@@ -150,7 +147,7 @@ const Account = () => {
         </Container>
         <br />
         <br />
-        <Container
+        <Container className="account-card"
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -160,8 +157,8 @@ const Account = () => {
         >
           {post.length ? (
             post.map((item) => (
-              <Card
-                sx={{ maxWidth: 345, flex: "0 0 33%", marginTop: "30px" }}
+              <Card className="cards"
+                sx={{ maxWidth: 345, flex: "0 0 33%", margin: "2rem auto" }}
                 key={`${item.id}`}
               >
                 <CardMedia
@@ -171,13 +168,14 @@ const Account = () => {
                   alt={item.data.title.replace(" ", "_")}
                   sx={{ objectFit: "fill" }}
                 />
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    <CardHeader
+                <CardHeader
                       title={`Title: ${item.data.title}`}
                       subheader={`By ${item.data.author} - ${item.data.yop}`}
-                      sx={{ display: "grid" }}
+                      sx={{ display: "grid"}}
+                      style={{textOverflow:"ellipsis"}}
                     />
+                <CardContent>
+                  <Typography variant="body2" color="text.secondary">
                     <FormGroup>
                       <FormControlLabel
                         control={

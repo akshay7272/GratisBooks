@@ -127,7 +127,7 @@ export default function Home() {
         {post.length ? (
           post.map((item) => (
             <div className="post-data">
-              <Card sx={{ maxWidth: "350px",maxHeight:"480px", boxShadow:"1px 3px 20px rgb(0 0 0 / 0.3)", borderRadius:"10px",margin:"2rem 2rem 0 4rem"}} key={`${item.id}`}>
+              <Card className="card" sx={{ maxWidth: "350px",maxHeight:"480px", boxShadow:"1px 3px 20px rgb(0 0 0 / 0.3)", borderRadius:"10px",margin:"2rem 2rem 0 4rem"}} key={`${item.id}`}>
                 <CardMedia
                   component="img"
                   height="194"
@@ -136,7 +136,7 @@ export default function Home() {
                   sx={{objectFit:"fill"}}
                 />
 
-                <CardContent>
+                <CardContent style={{padding:2}}>
                   <Typography variant="body2" color="text.secondary">
                     <CardHeader
                       avatar={
@@ -177,7 +177,7 @@ export default function Home() {
                     />
                   </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
+                <CardActions disableSpacing style={{padding:"0px 22px"}}>
                   {item.likes.length &&
                   item.likes.filter((e) => e.userName === `${user.uid}`).length >
                     0 &&

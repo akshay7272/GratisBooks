@@ -21,6 +21,7 @@ import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
 import { db } from "./firebase";
 import { doc, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { Container } from "@mui/material";
+import "./index.css";
 
 export default function Comments() {
   let location = useLocation();
@@ -93,8 +94,8 @@ export default function Comments() {
   return (
     <>
       <Container>
-        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-          <div style={{ height: "300px" }}>
+        <div className="comment" style={{ display: "flex", justifyContent: "space-evenly", marginTop:"2rem" }}>
+          <div>
             <Card sx={{ maxWidth: 395 }} key={`${location.state.item.id}`}>
               <CardMedia
                 component="img"
@@ -198,7 +199,7 @@ export default function Comments() {
               </CardActions>
             </Card>
           </div>
-          <div className="comment-bd">
+          <div className="comment-bd" style={{overflow:"scroll", maxHeight:"500px",maxWidth:"500px",overflowX:"hidden",marginTop:"2rem"}}>
             <h2>Comments</h2>
             {location.state.item.comments.length ? (
               location.state.item.comments.map((item) => (

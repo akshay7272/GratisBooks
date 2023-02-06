@@ -36,6 +36,21 @@ code {
   justify-content: space-between;
   padding: 0px 30px 0px 30px;
 }
+
+/* Mobile css for comment page */
+@media (max-width:767px) {
+  .comment{
+    display: block !important;
+  }
+  .account-card{
+    display: block !important;  
+  }
+}
+@media (min-width:768px) and (max-width:1200px) {
+  .cards{
+    flex: 0 0 30% !important;  
+  }
+}
 /* homepage css
 .card-items{
   display: flex;

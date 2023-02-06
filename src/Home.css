@@ -2,3 +2,11 @@
     display: grid;  
     grid-template-columns: auto auto auto auto;
 }
+@media (max-width:767px) {
+    .card-items{
+        display: block;
+    }
+    .card{
+        margin: 2rem !important;
+    }
+}
