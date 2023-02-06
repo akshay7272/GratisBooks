@@ -15,7 +15,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 // import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-
+import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
@@ -134,7 +134,7 @@ export default function Home() {
 
                 <CardContent style={{padding:2}}>
                   <Typography variant="body2" color="text.secondary">
-                    <CardHeader
+                    <CardHeader sx={{padding:"12px"}}
                       avatar={
                         <>
                           {item.photo ? (
@@ -168,8 +168,8 @@ export default function Home() {
                           )}
                         </>
                       }
-                      title={`Title: ${item.title}`}
-                      subheader={`By: ${item.author} - ${item.yop}`}
+                      title={`${item.title}`}
+                      subheader={`By: ${item.author} - ${item.yop} `}
                     />
                   </Typography>
                 </CardContent>
@@ -216,20 +216,24 @@ export default function Home() {
                     <span>No Comments</span>
                   )}
                 </CardActions>
-                <CardActions>
-                  <Avatar aria-label="recipe">
-                    {user.photoURL && (
-                      <>
-                        <img
-                          src={user.photoURL}
-                          width="40"
-                          height="40"
-                          alt={user.email}
-                        />
-                      </>
-                    )}
-                  </Avatar>
-
+                <CardActions style={{padding:"8px 16px"}}>
+                {user.photoURL ? (
+                  <Avatar aria-label="recipe"
+                    alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                    src={user.photoURL}
+                    sx={{ width: 100, height: 100, alignItems: "center" }}
+                  />
+                ) : (
+                  <Avatar aria-label="recipe"
+                    alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                    src={user.photoURL ? user.photoURL : "/alttext"}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      marginTop: "0.5rem",
+                    }}
+                  />
+                )}
                   <TextField
                     id={`t-${item.id}`}
                     label="Comment"
@@ -243,7 +247,7 @@ export default function Home() {
                   />
                   {/* {comment} */}
                   <Button onClick={PostComment} name={item.id}>
-                    Post
+                    <SendIcon color="primary"/>
                   </Button>
                 </CardActions>
                 <CardActions>

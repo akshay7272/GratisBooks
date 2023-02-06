@@ -2,6 +2,16 @@
     display: grid;  
     grid-template-columns: auto auto auto auto;
 }
+
+.MuiCardHeader-title{
+    font-weight: bold !important;
+}
+
+.MuiCardHeader-subheader{
+    font-weight: bold !important;
+    text-overflow: ellipsis;
+}
+
 @media (max-width:767px) {
     .card-items{
         display: block;

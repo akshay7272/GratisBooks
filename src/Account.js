@@ -171,8 +171,8 @@ const Account = () => {
                   sx={{ objectFit: "fill" }}
                 />
                 <CardHeader
-                      title={`Title: ${item.data.title}`}
-                      subheader={`By ${item.data.author} - ${item.data.yop}`}
+                      title={`${item.data.title}`}
+                      subheader={`By : ${item.data.author} - ${item.data.yop}`}
                       sx={{ display: "grid"}}
                       style={{textOverflow:"ellipsis"}}
                     />
