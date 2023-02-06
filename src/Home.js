@@ -15,7 +15,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 // import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
@@ -31,6 +32,8 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Home.css";
 import Button from "@mui/material/Button";
+import LinearProgress from "@mui/material/LinearProgress";
+import Box from "@mui/material/Box";
 import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
 
 export default function Home() {
@@ -49,8 +52,6 @@ export default function Home() {
       console.log(post, newData);
     });
   };
-
-
 
   const [liked, setLiked] = useState({});
   const [comment, setComment] = useState({});
@@ -74,7 +75,7 @@ export default function Home() {
       { merge: true }
     )
       .then(() => {
-        alert("comment added");
+        <Alert severity="success">Comment Posted!</Alert>;
         setComment({});
       })
       .catch((err) => console.log(err));
@@ -116,153 +117,174 @@ export default function Home() {
   };
   useEffect(() => {
     fetchPost();
-  }, [liked,comment]);
+  }, [liked, comment]);
   return (
     <>
       <div className="card-items">
-        {post.length ? (
-          post.map((item) => (
-            <div className="post-data">
-              <Card className="card" sx={{ maxWidth: "350px",maxHeight:"480px", boxShadow:"1px 3px 20px rgb(0 0 0 / 0.3)", borderRadius:"10px",margin:"2rem 2rem 0 4rem"}} key={`${item.id}`}>
-                <CardMedia
-                  component="img"
-                  height="194"
-                  image={item.cover}
-                  alt={item.title.replace(" ", "_")}
-                  sx={{objectFit:"fill"}}
-                />
-
-                <CardContent style={{padding:2}}>
-                  <Typography variant="body2" color="text.secondary">
-                    <CardHeader
-                      avatar={
-                        <>
-                          {item.photo ? (
-                            <Avatar
-                              alt={
-                                item.email
-                                  ? item.email.charAt(0).toUpperCase()
-                                  : ""
-                              }
-                              src={item.photo}
-                              sx={{
-                                width: 40,
-                                height: 40,
-                                alignItems: "center",
-                              }}
-                            />
-                          ) : (
-                            <Avatar
-                              alt={
-                                item.email
-                                  ? item.email.charAt(0).toUpperCase()
-                                  : ""
-                              }
-                              src={item.photo ? item.photo : "/alttext"}
-                              sx={{
-                                width: 40,
-                                height: 40,
-                                marginTop: "0.5rem",
-                              }}
-                            />
-                          )}
-                        </>
-                      }
-                      title={`Title: ${item.title}`}
-                      subheader={`By: ${item.author} - ${item.yop}`}
-                    />
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing style={{padding:"0px 22px"}}>
-                  {item.likes.length &&
-                  item.likes.filter((e) => e.userName === `${user.uid}`).length >
-                    0 &&
-                  liked[`${item.id}`] !== false ? (
-                    // <button onClick={unlikePost} name={item.id}>
-                    //   unlike
-                    // </button>
-                    <IconButton
-                      aria-label="add to favorites"
-                      onClick={() => unlikePost(item.id)}
-                    >
-                      <FavoriteIcon style={{ color: "red" }} />
-                    </IconButton>
-                  ) : (
-                    <IconButton
-                      aria-label="add to favorites"
-                      onClick={() => likePost(item.id)}
-                    >
-                      <FavoriteIcon style={{ color: "gray" }} />
-                    </IconButton>
-                  )}
-                  {item.likes.length ? (
-                    <p>{item.likes.length} Likes</p>
-                  ) : (
-                    <p>0 likes</p>
-                  )}
-
-                  <IconButton
-                    aria-label="share"
-                    onClick={() =>
-                      navigate(`/comments/${item.id}`, { state: { item } })
-                    }
-                  >
-                    <AddCommentRoundedIcon />
-                  </IconButton>
-                  <div></div>
-                  {item.comments.length ? (
-                    <span>{item.comments.length} Comments</span>
-                  ) : (
-                    <span>No Comments</span>
-                  )}
-                </CardActions>
-                <CardActions>
-                  <Avatar aria-label="recipe">
-                    {user.photoURL && (
-                      <>
-                        <img
-                          src={user.photoURL}
-                          width="40"
-                          height="40"
-                          alt={user.email}
-                        />
-                      </>
-                    )}
-                  </Avatar>
-
-                  <TextField
-                    id={`t-${item.id}`}
-                    label="Comment"
-                    variant="standard"
-                    value={
-                      `${comment[`t-${item.id}`]}` === "undefined"
-                        ? ""
-                        : `${comment[`t-${item.id}`]}`
-                    }
-                    onChange={handleChange}
+        {post.length
+          ? post.map((item) => (
+              <div className="post-data">
+                <Card
+                  className="card"
+                  sx={{
+                    maxWidth: "350px",
+                    maxHeight: "480px",
+                    boxShadow: "1px 3px 20px rgb(0 0 0 / 0.3)",
+                    borderRadius: "10px",
+                    margin: "2rem 2rem 0 4rem",
+                  }}
+                  key={`${item.id}`}
+                >
+                  <CardMedia
+                    component="img"
+                    height="194"
+                    image={item.cover}
+                    alt={item.title.replace(" ", "_")}
+                    sx={{ objectFit: "fill" }}
                   />
-                  {/* {comment} */}
-                  <Button onClick={PostComment} name={item.id}>
-                    Post
-                  </Button>
-                </CardActions>
-                <CardActions>
-                  {item.isBooked ? (
-                    <Button disabled>Already Shared</Button>
-                  ) : (
-                    <Button>Contact Seller {item.phone}</Button>
-                  )}
-                </CardActions>
-              </Card>
-            </div>
-          ))
-        ) : (
-          <p>
-            Everyone deserves a chance to read. So why not go ahead and share
-            the best books of our time with someone who needs them most?
-          </p>
-        )}
+
+                  <CardContent style={{ padding: 2 }}>
+                    <Typography variant="body2" color="text.secondary">
+                      <CardHeader
+                        avatar={
+                          <>
+                            {item.photo ? (
+                              <Avatar
+                                alt={
+                                  item.email
+                                    ? item.email.charAt(0).toUpperCase()
+                                    : ""
+                                }
+                                src={item.photo}
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                  alignItems: "center",
+                                }}
+                              />
+                            ) : (
+                              <Avatar
+                                alt={
+                                  item.email
+                                    ? item.email.charAt(0).toUpperCase()
+                                    : ""
+                                }
+                                src={item.photo ? item.photo : "/alttext"}
+                                sx={{
+                                  width: 40,
+                                  height: 40,
+                                  marginTop: "0.5rem",
+                                }}
+                              />
+                            )}
+                          </>
+                        }
+                        title={`Title: ${item.title}`}
+                        subheader={`By: ${item.author} - ${item.yop}`}
+                      />
+                    </Typography>
+                  </CardContent>
+                  <CardActions disableSpacing style={{ padding: "0px 22px" }}>
+                    {item.likes.length &&
+                    item.likes.filter((e) => e.userName === `${user.uid}`)
+                      .length > 0 &&
+                    liked[`${item.id}`] !== false ? (
+                      // <button onClick={unlikePost} name={item.id}>
+                      //   unlike
+                      // </button>
+                      <IconButton
+                        aria-label="add to favorites"
+                        onClick={() => unlikePost(item.id)}
+                      >
+                        <FavoriteIcon style={{ color: "red" }} />
+                      </IconButton>
+                    ) : (
+                      <IconButton
+                        aria-label="add to favorites"
+                        onClick={() => likePost(item.id)}
+                      >
+                        <FavoriteIcon style={{ color: "gray" }} />
+                      </IconButton>
+                    )}
+                    {item.likes.length ? (
+                      <p>{item.likes.length} Likes</p>
+                    ) : (
+                      <p>0 likes</p>
+                    )}
+
+                    <IconButton
+                      aria-label="share"
+                      onClick={() =>
+                        navigate(`/comments/${item.id}`, { state: { item } })
+                      }
+                    >
+                      <AddCommentRoundedIcon />
+                    </IconButton>
+                    <div></div>
+                    {item.comments.length ? (
+                      <span>{item.comments.length} Comments</span>
+                    ) : (
+                      <span>No Comments</span>
+                    )}
+                  </CardActions>
+                  <CardActions>
+                    <Avatar aria-label="recipe">
+                      {user.photoURL && (
+                        <>
+                          <img
+                            src={user.photoURL}
+                            width="40"
+                            height="40"
+                            alt={user.email}
+                          />
+                        </>
+                      )}
+                    </Avatar>
+
+                    <TextField
+                      id={`t-${item.id}`}
+                      label="Comment"
+                      variant="standard"
+                      value={
+                        `${comment[`t-${item.id}`]}` === "undefined"
+                          ? ""
+                          : `${comment[`t-${item.id}`]}`
+                      }
+                      onChange={handleChange}
+                    />
+                    {/* {comment} */}
+                    <Button onClick={PostComment} name={item.id}>
+                      Post
+                    </Button>
+                  </CardActions>
+                  <CardActions>
+                    {item.isBooked ? (
+                      <Button disabled>Already Shared</Button>
+                    ) : (
+                      <Button>Contact Seller {item.phone}</Button>
+                    )}
+                  </CardActions>
+                </Card>
+              </div>
+            ))
+          : ""}
       </div>
+      {!post.length && (
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+          <Box
+            style={{
+              width: "100%",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress disableShrink />
+          </Box>
+        </Box>
+      )}
     </>
   );
 }

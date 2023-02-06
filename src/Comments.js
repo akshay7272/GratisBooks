@@ -94,7 +94,14 @@ export default function Comments() {
   return (
     <>
       <Container>
-        <div className="comment" style={{ display: "flex", justifyContent: "space-evenly", marginTop:"2rem" }}>
+        <div
+          className="comment"
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            marginTop: "2rem",
+          }}
+        >
           <div>
             <Card sx={{ maxWidth: 395 }} key={`${location.state.item.id}`}>
               <CardMedia
@@ -160,36 +167,7 @@ export default function Comments() {
                   <span>No Comments</span>
                 )}
               </CardActions>
-              <CardActions>
-                <Avatar aria-label="recipe">
-                  {user.photoURL && (
-                    <>
-                      <img
-                        src={user.photoURL}
-                        width="40"
-                        height="40"
-                        alt={user.email}
-                      />
-                    </>
-                  )}
-                </Avatar>
 
-                <TextField
-                  id={`t-${location.state.item.id}`}
-                  label="Comment"
-                  variant="standard"
-                  value={
-                    `${comment[`t-${location.state.item.id}`]}` === "undefined"
-                      ? ""
-                      : `${comment[`t-${location.state.item.id}`]}`
-                  }
-                  onChange={handleChange}
-                />
-                {/* {comment} */}
-                <Button onClick={PostComment} name={location.state.item.id}>
-                  Post
-                </Button>
-              </CardActions>
               <CardActions>
                 {location.state.item.isBooked ? (
                   <Button disabled>Already Shared</Button>
@@ -199,7 +177,16 @@ export default function Comments() {
               </CardActions>
             </Card>
           </div>
-          <div className="comment-bd" style={{overflow:"scroll", maxHeight:"500px",maxWidth:"500px",overflowX:"hidden",marginTop:"2rem"}}>
+          <div
+            className="comment-bd"
+            style={{
+              overflow: "scroll",
+              maxHeight: "500px",
+              maxWidth: "500px",
+              overflowX: "hidden",
+              marginTop: "2rem",
+            }}
+          >
             <h2>Comments</h2>
             {location.state.item.comments.length ? (
               location.state.item.comments.map((item) => (
