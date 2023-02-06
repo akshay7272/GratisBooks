@@ -54,7 +54,7 @@ const Navbar = () => {
     console.log("user", user);
   });
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "#009688" }}>
       {user && (
         <>
           <Container maxWidth="xxxl">

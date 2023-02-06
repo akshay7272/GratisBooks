@@ -149,7 +149,8 @@ const Account = () => {
         </Container>
         <br />
         <br />
-        <Container className="account-card"
+        <Container
+          className="account-card"
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -159,7 +160,8 @@ const Account = () => {
         >
           {post.length ? (
             post.map((item) => (
-              <Card className="cards"
+              <Card
+                className="cards"
                 sx={{ maxWidth: 345, flex: "0 0 33%", margin: "2rem auto" }}
                 key={`${item.id}`}
               >
@@ -171,11 +173,11 @@ const Account = () => {
                   sx={{ objectFit: "fill" }}
                 />
                 <CardHeader
-                      title={`${item.data.title}`}
-                      subheader={`By : ${item.data.author} - ${item.data.yop}`}
-                      sx={{ display: "grid"}}
-                      style={{textOverflow:"ellipsis"}}
-                    />
+                  title={`${item.data.title}`}
+                  subheader={`By : ${item.data.author} - ${item.data.yop}`}
+                  sx={{ display: "grid" }}
+                  style={{ textOverflow: "ellipsis" }}
+                />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     <FormGroup>
@@ -227,7 +229,7 @@ const Account = () => {
             <Typography
               variant="h5"
               component="span"
-              style={{ color: "white", margin: "auto" }}
+              style={{ margin: "auto" }}
             >
               You have not donated any book. Please Donate
             </Typography>
