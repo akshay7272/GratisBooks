@@ -17,6 +17,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "./context/AuthContext";
 import TextField from "@mui/material/TextField";
@@ -40,6 +41,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { user } = UserAuth();
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
   // Fetching Posts from firebase database
   const fetchPost = async () => {
     await getDocs(collection(db, "books")).then((querySnapshot) => {
@@ -49,6 +51,7 @@ export default function Home() {
       }));
 
       setPost(newData);
+      setLoading(false);
       console.log(post, newData);
     });
   };
@@ -120,9 +123,10 @@ export default function Home() {
   }, [liked, comment]);
   return (
     <>
-      <div className="card-items">
-        {post.length
-          ? post.map((item) => (
+      {!loading ? (
+        <div className="card-items">
+          {post.length ? (
+            post.map((item) => (
               <div className="post-data">
                 <Card
                   className="card"
@@ -254,7 +258,7 @@ export default function Home() {
                     />
                     {/* {comment} */}
                     <Button onClick={PostComment} name={item.id}>
-                      Post
+                      <SendIcon color="primary" />
                     </Button>
                   </CardActions>
                   <CardActions>
@@ -267,9 +271,14 @@ export default function Home() {
                 </Card>
               </div>
             ))
-          : ""}
-      </div>
-      {!post.length && (
+          ) : (
+            <Typography variant="h4" gutterBottom>
+              Everyone deserves a chance to read. So why not go ahead and share
+              the best books of our time with someone who needs them most?
+            </Typography>
+          )}
+        </div>
+      ) : (
         <Box sx={{ width: "100%" }}>
           <LinearProgress />
           <Box
