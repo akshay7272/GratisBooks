@@ -23,6 +23,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { Container, Toolbar } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -196,15 +198,17 @@ const Account = () => {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       margin="normal"
                       component="label"
+                      color="error"
                       onClick={() => DeleteItem(item.id, item.data.title)}
                     >
-                      Delete
+                      <DeleteIcon />
                     </Button>
+
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       margin="normal"
                       component="label"
                       onClick={() =>
@@ -213,7 +217,7 @@ const Account = () => {
                         })
                       }
                     >
-                      Edit
+                      <EditIcon />
                     </Button>
                   </Box>
                 </CardContent>
