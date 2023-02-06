@@ -10,8 +10,8 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { UserAuth } from "./context/AuthContext";
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -25,12 +25,11 @@ import { useNavigate } from "react-router-dom";
 import { Container, Toolbar } from "@mui/material";
 
 const Account = () => {
-
   const navigate = useNavigate();
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const { user } = UserAuth();
   const [post, setPost] = useState([]);
-  const [ setVisible] = useState(false);
+  const [setVisible] = useState(false);
   // Fetching account details for perticular user posts
   const fetchPost = async () => {
     const qSnap = query(
@@ -81,54 +80,103 @@ const Account = () => {
     <>
       <Container className="main-container">
         <Container>
-          <Toolbar sx={{flexDirection:'column'}}>
+          <Toolbar
+            sx={{ flexDirection: "column" }}
+            style={{ paddingTop: "20px" }}
+          >
             {user.photoURL ? (
-                <Avatar
-                alt={(user.email) ? user.email.charAt(0).toUpperCase() : '' }
+              <Avatar
+                alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
                 src={user.photoURL}
-                sx={{ width: 100, height: 100, alignItems:"center" }}
+                sx={{ width: 100, height: 100, alignItems: "center" }}
               />
-            ) : (<Avatar
-            alt={(user.email) ? user.email.charAt(0).toUpperCase() : '' }
-            src={(user.photoURL) ? user.photoURL : '/alttext'}
-            sx={{ width: 70, height: 70, fontSize: "3.5rem",marginTop: "0.5rem"}}
-          />)}
+            ) : (
+              <Avatar
+                alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                src={user.photoURL ? user.photoURL : "/alttext"}
+                sx={{
+                  width: 70,
+                  height: 70,
+                  fontSize: "3.5rem",
+                  marginTop: "0.5rem",
+                }}
+              />
+            )}
           </Toolbar>
           {user.displayName ? (
-            <Typography variant="h4" component="h2" sx={{textAlign:"center"}}>Welcome, {user.displayName}</Typography>
-          ):(
-            <Typography variant="h4" component="h2" sx={{textAlign:"center"}}>Welcome</Typography>
+            <Typography
+              variant="h4"
+              component="h2"
+              sx={{ textAlign: "center" }}
+              style={{ color: "white" }}
+            >
+              Welcome, {user.displayName}
+            </Typography>
+          ) : (
+            <Typography
+              variant="h4"
+              component="h2"
+              sx={{ textAlign: "center" }}
+              style={{ color: "white" }}
+            >
+              Welcome
+            </Typography>
           )}
-          <Typography variant="body2" component="span" sx={{textAlign:"center", display:"flex", flexDirection:"column"}} >
+          <Typography
+            variant="body2"
+            component="span"
+            sx={{
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+            }}
+            style={{ color: "white" }}
+          >
             {user.email && (
-              <Typography variant="h5" component="h2" > {user.email}</Typography>
+              <Typography variant="h5" component="h2">
+                {" "}
+                {user.email}
+              </Typography>
             )}
-            {user.phoneNumber &&(
-              <Typography variant="h5" component="h2" ><b>Phone Number : </b> {user.phoneNumber}</Typography>
+            {user.phoneNumber && (
+              <Typography variant="h5" component="h2">
+                <b>Phone Number : </b> {user.phoneNumber}
+              </Typography>
             )}
           </Typography>
           {/* <Box sx={{textAlign: "center"}}>
           <Button onSubmit={"/update"} variant="contained" > Update</Button>
           </Box> */}
         </Container>
-        <br/><br/>
-        <Container sx={{display:"grid", gridTemplateColumns: "auto auto auto"}}>
+        <br />
+        <br />
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            maxWidth: "100%",
+          }}
+        >
           {post.length ? (
             post.map((item) => (
-              <Card sx={{ maxWidth: 345 }} key={`${item.id}`}>
+              <Card
+                sx={{ maxWidth: 345, flex: "0 0 33%", marginTop: "30px" }}
+                key={`${item.id}`}
+              >
                 <CardMedia
                   component="img"
                   height="194"
                   image={item.data.cover}
                   alt={item.data.title.replace(" ", "_")}
-                  sx={{objectFit:"fill"}}
+                  sx={{ objectFit: "fill" }}
                 />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     <CardHeader
                       title={`Title: ${item.data.title}`}
                       subheader={`By ${item.data.author} - ${item.data.yop}`}
-                      sx={{display:"grid"}}
+                      sx={{ display: "grid" }}
                     />
                     <FormGroup>
                       <FormControlLabel
@@ -146,7 +194,9 @@ const Account = () => {
                     </FormGroup>
                   </Typography>
 
-                  <Box sx={{display:"flex", justifyContent:"space-between"}}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <Button
                       variant="contained"
                       margin="normal"
@@ -160,7 +210,9 @@ const Account = () => {
                       margin="normal"
                       component="label"
                       onClick={() =>
-                        navigate(`/account/update/${item.id}`, { state: { item } })
+                        navigate(`/account/update/${item.id}`, {
+                          state: { item },
+                        })
                       }
                     >
                       Edit
@@ -170,7 +222,13 @@ const Account = () => {
               </Card>
             ))
           ) : (
-            <Typography variant="h5" component="span" >You have not donate any book. Please Donate</Typography>
+            <Typography
+              variant="h5"
+              component="span"
+              style={{ color: "white", margin: "auto" }}
+            >
+              You have not donated any book. Please Donate
+            </Typography>
           )}
         </Container>
       </Container>
