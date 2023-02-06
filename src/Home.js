@@ -183,8 +183,9 @@ export default function Home() {
                             )}
                           </>
                         }
-                        title={`Title: ${item.title}`}
-                        subheader={`By: ${item.author} - ${item.yop}`}
+                        title={`${item.title}`}
+                        subheader={`${item.author}`}
+                        action={`Year: ${item.yop}`}
                       />
                     </Typography>
                   </CardContent>
