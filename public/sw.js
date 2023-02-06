@@ -6,7 +6,9 @@ this.addEventListener("install",(event)=>{
       cache.addAll([
         "/static/js/bundle.js",
         "/index.html",
-        "/"
+        "/",
+        "/account",
+        "/comments/:id"
       ])
     })
   )
