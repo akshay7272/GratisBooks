@@ -8,6 +8,8 @@ import {
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
+import bookopen from "./assets/bookopen.gif";
+
 import Comments from "./Comments";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -291,7 +293,12 @@ export default function Home() {
               alignItems: "center",
             }}
           >
-            <CircularProgress disableShrink />
+            <img
+              src={bookopen}
+              alt="React Logo"
+              width="50%"
+              style={{ borderRadius: "12px" }}
+            />
           </Box>
         </Box>
       )}
