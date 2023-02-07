@@ -37,8 +37,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  if (user) navigate("/");
-
   const showError = (error) => {
     setErrorMsg(error);
     setTimeout(() => {
@@ -56,7 +54,7 @@ const Login = () => {
       const user = await login(email, password)
         .then((res) =>
           setErrorMsg(
-            res.message.replace(/[\[.*\]']+/g, "").replace("Firebase: ", "")
+            res.message.replace(/[[.*\]']+/g, "").replace("Firebase: ", "")
           )
         )
         .catch((err) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -7,7 +7,6 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import { UserAuth } from "./context/AuthContext";
-import TextField from "@mui/material/TextField";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -27,29 +26,7 @@ export default function Comments() {
   let location = useLocation();
   const { user } = UserAuth();
   const [liked, setLiked] = useState({});
-  const [comment, setComment] = useState({});
-  const PostComment = async (event) => {
-    updateDoc(
-      doc(db, `books/${event.target.name}`),
-      {
-        comments: arrayUnion({
-          userName: user.uid,
-          photo: user.photoURL,
-          email: user.email,
-          comment: comment[`t-${event.target.name}`],
-        }),
-      },
-      { merge: true }
-    )
-      .then(() => {
-        alert("comment added");
-        setComment({});
-      })
-      .catch((err) => console.log(err));
-  };
-  const handleChange = (e) => {
-    setComment({ ...comment, [e.target.id]: e.target.value });
-  };
+
   // Inserting likes in firebase database
   const likePost = async (Id) => {
     updateDoc(
@@ -61,7 +38,6 @@ export default function Comments() {
     )
       .then(() => {
         setLiked({ ...liked, [Id]: true });
-        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -80,15 +56,9 @@ export default function Comments() {
     )
       .then(() => {
         setLiked({ ...liked, [Id]: false });
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    console.log(location.state.item.comments, "commentsssss");
-    console.log(location.state.item, "itemmm");
-    console.log(comment, "comments");
-  });
 
   //Displaying Comments in Comment page for each different Posts.
   return (

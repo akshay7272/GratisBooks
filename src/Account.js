@@ -31,7 +31,6 @@ const Account = () => {
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const { user } = UserAuth();
   const [post, setPost] = useState([]);
-  const [setVisible] = useState(false);
   // Fetching account details for perticular user posts
   const fetchPost = async () => {
     const qSnap = query(

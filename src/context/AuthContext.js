@@ -1,23 +1,17 @@
-import { useContext, createContext, useEffect, useState } from 'react';
-import React from 'react';
-import {
-  arrayUnion,
-  doc,
-  getDoc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { useContext, createContext, useEffect, useState } from "react";
+import React from "react";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
   signOut,
-  createUserWithEmailAndPassword, 
+  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
   onAuthStateChanged,
-} from 'firebase/auth';
-import { auth, db } from '../firebase';
+} from "firebase/auth";
+import { auth, db } from "../firebase";
 
 const AuthContext = createContext();
 
@@ -25,47 +19,45 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
 
   const [loading, setLoading] = useState(true);
-    
 
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider)
+    signInWithRedirect(auth, provider);
   };
 
   const logOut = () => {
-      signOut(auth)
-  }
+    signOut(auth);
+  };
 
   useEffect(() => {
     const getUser = onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          const userRef = await getDoc(doc(db, `user/${user.uid}`));
-          setUser({
-            ...user,
-            displayName: userRef.data()?.fullName || null,
-            photoURL: userRef.data()?.photoURL || null,
-            isVerified: userRef.data()?.isVerified || false,
-          });
-          setLoading(false);
-        }
-        if (!user) {
-          setUser(null);
-          setLoading(false);
-        }
-      });
+      if (user) {
+        const userRef = await getDoc(doc(db, `user/${user.uid}`));
+        setUser({
+          ...user,
+          displayName: userRef.data()?.fullName || null,
+          photoURL: userRef.data()?.photoURL || null,
+          isVerified: userRef.data()?.isVerified || false,
+        });
+        setLoading(false);
+      }
+      if (!user) {
+        setUser(null);
+        setLoading(false);
+      }
+    });
     return getUser();
   }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log('User', currentUser)
+      console.log("User", currentUser);
     });
     return () => {
       unsubscribe();
     };
-    
   }, [user]);
 
   const login = async (email, password) => {
@@ -96,11 +88,13 @@ export const AuthContextProvider = ({ children }) => {
           console.log(user);
         }
       );
-      await sendEmailVerification(user).then(() => {
-        // Email sent.
-      }).catch((error) => {
-        console.log(error)
-      })
+      await sendEmailVerification(user)
+        .then(() => {
+          // Email sent.
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       console.log(error);
       return error;
