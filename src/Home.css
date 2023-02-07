@@ -1,6 +1,8 @@
 .card-items{
-    display: grid;  
-    grid-template-columns: auto auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
 }
 
 .MuiCardHeader-title{
@@ -14,13 +16,4 @@
 
 .MuiCardHeader-action{
     font-weight: bold !important;
-}
-
-@media (max-width:767px) {
-    .card-items{
-        display: block;
-    }
-    .card{
-        margin: 2rem !important;
-    }
 }
