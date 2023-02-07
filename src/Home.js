@@ -8,13 +8,6 @@ import {
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
-import Comments from "./Comments";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-// import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import SendIcon from "@mui/icons-material/Send";
@@ -29,7 +22,6 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Home.css";
 import Button from "@mui/material/Button";
@@ -131,11 +123,10 @@ export default function Home() {
                 <Card
                   className="card"
                   sx={{
-                    maxWidth: "350px",
                     maxHeight: "480px",
                     boxShadow: "1px 3px 20px rgb(0 0 0 / 0.3)",
                     borderRadius: "10px",
-                    margin: "2rem 2rem 0 4rem",
+                    margin: "1rem",
                   }}
                   key={`${item.id}`}
                 >
@@ -144,7 +135,7 @@ export default function Home() {
                     height="194"
                     image={item.cover}
                     alt={item.title.replace(" ", "_")}
-                    sx={{ objectFit: "fill" }}
+                    sx={{ objectFit: "contain", maxWidth:"100%", width:"350px",backgroundColor:"#efefef" }}
                   />
 
                   <CardContent style={{ padding: 2 }}>
@@ -184,12 +175,11 @@ export default function Home() {
                           </>
                         }
                         title={`${item.title}`}
-                        subheader={`${item.author}`}
-                        action={`Year: ${item.yop}`}
+                        subheader={`${item.author} - ${item.yop}`}
                       />
                     </Typography>
                   </CardContent>
-                  <CardActions disableSpacing style={{ padding: "0px 22px" }}>
+                  <CardActions style={{ padding: "0px 22px" }}>
                     {item.likes.length &&
                     item.likes.filter((e) => e.userName === `${user.uid}`)
                       .length > 0 &&
