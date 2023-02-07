@@ -1,66 +1,74 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import { UserAuth } from "./context/AuthContext";
 import { isValidEmail } from "./utility";
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logo from './assets/logo.png';
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import logo from "./assets/logo.png";
 import { GoogleButton } from "react-google-button";
 
 const Login = () => {
-
   function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
         {new Date().getFullYear()}
-        {'.'}
+        {"."}
       </Typography>
     );
   }
-  
+
   const theme = createTheme();
-  const { googleSignIn, user , login} = UserAuth();
+  const { googleSignIn, user, login } = UserAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  
+
   if (user) navigate("/");
 
   const showError = (error) => {
     setErrorMsg(error);
     setTimeout(() => {
       setErrorMsg("");
-    }, 3000);
+    });
   };
 
   const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!isValidEmail(email)) showError("Invalid email address");
-        else if (password.length < 6)
-          showError("Password must be at least 6 characters");
-        if (isValidEmail(email) && password.length > 6) {
-          const user = await login(email, password);
-          if (user) {
-            setEmail("");
-            setPassword("");
-          }
-          if (!user)
-            showError(
-              "Sorry, your password was incorrect. Please double-check your password."
-            );
-        }
+    e.preventDefault();
+    if (email === "" || password === "") {
+      setErrorMsg("please enter required fieds");
+    }
+    if (!isValidEmail(email)) setErrorMsg(`Invalid email address`);
+    if (isValidEmail(email) && password.length > 0) {
+      const user = await login(email, password)
+        .then((res) =>
+          setErrorMsg(
+            res.message.replace(/[\[.*\]']+/g, "").replace("Firebase: ", "")
+          )
+        )
+        .catch((err) => {
+          setErrorMsg(showError);
+        });
+      if (user) {
+        setEmail("");
+        setPassword("");
+      }
+    }
   };
-  
+
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
@@ -70,13 +78,9 @@ const Login = () => {
   };
   useEffect(() => {
     if (user !== null) {
-      navigate("/")
+      navigate("/");
     }
-  },[user])
-
-  useEffect(() => {
-    setDisabled(email.length > 0 && password.length > 0 ? false : true);
-  }, [email, password]);
+  }, [user]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,21 +89,21 @@ const Login = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-           <Box
-            component="img"
-            sx={{ height: 120 }}
-            alt="Logo"
-            src={logo}
-          />
+          <Box component="img" sx={{ height: 120 }} alt="Logo" src={logo} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -107,7 +111,7 @@ const Login = () => {
               id="email"
               label="Email Address"
               name="email"
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -117,8 +121,10 @@ const Login = () => {
               label="Password"
               type="password"
               id="password"
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+
             <Button
               type="submit"
               fullWidth
@@ -127,7 +133,7 @@ const Login = () => {
             >
               Sign In
             </Button>
-            
+
             <Grid container>
               <Grid item>
                 <Link href="/register" variant="body2">
@@ -138,11 +144,11 @@ const Login = () => {
           </Box>
         </Box>
         <GoogleButton
-                className="g-btn"
-                sx={{ mt: 0, mb: 0 }}
-                variant="contained"
-                onClick={handleGoogleSignIn}
-              />
+          className="g-btn"
+          sx={{ mt: 0, mb: 0 }}
+          variant="contained"
+          onClick={handleGoogleSignIn}
+        />
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
