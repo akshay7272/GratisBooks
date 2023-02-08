@@ -275,7 +275,7 @@ export default function Home() {
           )}
         </div>
       ) : (
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ width: "100%", marginTo: "0px" }}>
           <LinearProgress />
           <Box
             style={{
@@ -289,8 +289,8 @@ export default function Home() {
             <img
               src={bookopen}
               alt="React Logo"
-              width="50%"
-              style={{ borderRadius: "12px" }}
+              width="20%"
+              style={{ borderRadius: "12px", marginTop: "0", paddingTop: "0" }}
             />
           </Box>
         </Box>

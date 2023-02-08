@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { UserAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { isValidEmail } from "./utility";

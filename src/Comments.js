@@ -155,6 +155,7 @@ export default function Comments() {
               maxWidth: "500px",
               overflowX: "hidden",
               marginTop: "2rem",
+              width: "30%",
             }}
           >
             <h2>Comments</h2>

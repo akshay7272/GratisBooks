@@ -10,6 +10,7 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 
@@ -23,7 +24,6 @@ export const AuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider);
-    signInWithRedirect(auth, provider);
   };
 
   const logOut = () => {
