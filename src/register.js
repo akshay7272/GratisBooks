@@ -52,7 +52,7 @@ export default function Signup() {
         setErrorMsg("User with this user already exists");
         navigate("/login");
       } else {
-        const user = await signUp(email, password).then(()=>alert('Email Verfication link send to your Mail')).catch(err => console.log(err));
+        const user = await signUp(email, password).then(()=> alert('Email Verfication link send to your Mail')).catch(err => console.log(err));
         if (user) {
           setEmail("");
           setPassword("");

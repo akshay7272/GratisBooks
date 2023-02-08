@@ -227,18 +227,24 @@ export default function Home() {
                       <span>No Comments</span>
                     )}
                   </CardActions>
-                  <CardActions>
+                  <CardActions style={{padding:"8px 14px"}}>
                     <Avatar aria-label="recipe">
-                      {user.photoURL && (
-                        <>
-                          <img
-                            src={user.photoURL}
-                            width="40"
-                            height="40"
-                            alt={user.email}
-                          />
-                        </>
-                      )}
+                    {user.photoURL ? (
+                      <Avatar
+                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                        src={user.photoURL}
+                        sx={{ width: 100, height: 100, alignItems: "center" }}
+                      />
+                    ) : (
+                      <Avatar
+                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                        src={user.photoURL ? user.photoURL : "/alttext"}
+                        sx={{
+                          width: 40,
+                          height: 40,
+                        }}
+                      />
+                    )}
                     </Avatar>
 
                     <TextField

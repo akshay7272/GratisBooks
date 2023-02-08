@@ -4,13 +4,11 @@ import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import {
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
   onAuthStateChanged,
-  updateProfile,
 } from "firebase/auth";
 import { auth, db } from "../firebase";
 
