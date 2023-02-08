@@ -37,6 +37,8 @@ export default function Signup() {
   const [setErrorMsg] = useState("");
   const { user, signUp } = UserAuth();
 
+  if (user) navigate("/");
+  
   const showError = (error) => {
     setErrorMsg(error);
     setTimeout(() => {
@@ -47,8 +49,7 @@ export default function Signup() {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isValidEmail(email)) showError("Invalid email address");
-    else if (password.length < 6)
-      showError("Password must be at least 6 characters");
+    
     if (isValidEmail(email) && password.length > 6) {
       if (user) {
         setErrorMsg("User with this user already exists");
