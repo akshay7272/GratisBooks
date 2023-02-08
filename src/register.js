@@ -34,36 +34,34 @@ export default function Signup() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const { user, signUp } = UserAuth();
 
-  if (user) navigate("/");
-  
   const showError = (error) => {
     setErrorMsg(error);
-    setTimeout(() => {
-      setErrorMsg("");
-    });
   };
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!isValidEmail(email)) showError("Invalid email address");
-    
+    else if (password.length < 6)
+      showError("Password must be at least 6 characters");
     if (isValidEmail(email) && password.length > 6) {
       if (user) {
         setErrorMsg("User with this user already exists");
         navigate("/login");
       } else {
-        const user = await signUp(email, password);
+        const user = await signUp(email, password).then(()=>alert('Email Verfication link send to your Mail')).catch(err => console.log(err));
         if (user) {
           setEmail("");
           setPassword("");
-          navigate("/");
         }
       }
     }
   };
+
+  if(user) navigate("/");
 
   return (
     <ThemeProvider theme={theme}>
@@ -107,6 +105,7 @@ export default function Signup() {
                 />
               </Grid>
             </Grid>
+            {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
             <Button
               type="submit"
               fullWidth
