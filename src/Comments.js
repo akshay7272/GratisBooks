@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -25,6 +26,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Comments() {
   let location = useLocation();
+  const navigate = useNavigate();
   const { user } = UserAuth();
   const [liked, setLiked] = useState({});
 
@@ -65,14 +67,16 @@ export default function Comments() {
   return (
     <>
       <Container>
-        <Button
-          className="back-button"
-          variant="outlined"
-          color="secondary"
-          style={{ position: "absolute", width: "5rem", left: "50px" }}
-        >
-          <ArrowBackIcon />
-        </Button>
+        <div className="back-button">
+          <Button
+            variant="outlined"
+            color="secondary"
+            style={{ position: "absolute", width: "3rem", left: "5px" }}
+            onClick={() => navigate(`/`)}
+          >
+            <ArrowBackIcon />
+          </Button>
+        </div>
         <div
           className="comment"
           style={{
@@ -82,7 +86,10 @@ export default function Comments() {
           }}
         >
           <div>
-            <Card sx={{ maxWidth: "395px", margin:"auto" }} key={`${location.state.item.id}`}>
+            <Card
+              sx={{ maxWidth: "395px", margin: "auto" }}
+              key={`${location.state.item.id}`}
+            >
               <CardMedia
                 component="img"
                 height="250"
