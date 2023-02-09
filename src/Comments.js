@@ -82,7 +82,7 @@ export default function Comments() {
           }}
         >
           <div>
-            <Card sx={{ maxWidth: 395 }} key={`${location.state.item.id}`}>
+            <Card sx={{ maxWidth: "395px", margin:"auto" }} key={`${location.state.item.id}`}>
               <CardMedia
                 component="img"
                 height="250"
