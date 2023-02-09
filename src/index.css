@@ -51,12 +51,16 @@ code {
   .comment-bd h2{
     text-align: center;
   }
+  .back-button{
+    display: none;
+  }
 }
 @media (min-width:768px) and (max-width:1200px) {
   .cards{
     flex: 0 0 30% !important;  
   }
 }
+
 /* homepage css
 .card-items{
   display: flex;

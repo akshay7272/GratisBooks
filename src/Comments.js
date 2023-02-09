@@ -21,6 +21,7 @@ import { db } from "./firebase";
 import { doc, updateDoc, arrayRemove, arrayUnion } from "firebase/firestore";
 import { Container } from "@mui/material";
 import "./index.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Comments() {
   let location = useLocation();
@@ -64,6 +65,14 @@ export default function Comments() {
   return (
     <>
       <Container>
+        <Button
+          className="back-button"
+          variant="outlined"
+          color="secondary"
+          style={{ position: "absolute", width: "5rem", left: "50px" }}
+        >
+          <ArrowBackIcon />
+        </Button>
         <div
           className="comment"
           style={{
@@ -87,21 +96,37 @@ export default function Comments() {
                     avatar={
                       <Avatar aria-label="recipe">
                         {location.state.item.photo ? (
-                      <Avatar
-                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
-                        src={location.state.item.photo}
-                        sx={{ width: "40px", height: "40px", objectFit:"contain"}}
-                      />
-                    ) : (
-                      <Avatar
-                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
-                        src={location.state.item.photo ? location.state.item.photo : "/alttext"}
-                        sx={{
-                          width: "40px",
-                          height: "40px",
-                        }}
-                      />
-                    )}
+                          <Avatar
+                            alt={
+                              user.email
+                                ? user.email.charAt(0).toUpperCase()
+                                : ""
+                            }
+                            src={location.state.item.photo}
+                            sx={{
+                              width: "40px",
+                              height: "40px",
+                              objectFit: "contain",
+                            }}
+                          />
+                        ) : (
+                          <Avatar
+                            alt={
+                              user.email
+                                ? user.email.charAt(0).toUpperCase()
+                                : ""
+                            }
+                            src={
+                              location.state.item.photo
+                                ? location.state.item.photo
+                                : "/alttext"
+                            }
+                            sx={{
+                              width: "40px",
+                              height: "40px",
+                            }}
+                          />
+                        )}
                       </Avatar>
                     }
                     title={`Title: ${location.state.item.title}`}
@@ -179,33 +204,29 @@ export default function Comments() {
                 >
                   <ListItem>
                     <ListItemAvatar>
-                    {item.photo ? (
-                              <Avatar
-                                alt={
-                                  item.email
-                                    ? item.email.charAt(0).toUpperCase()
-                                    : ""
-                                }
-                                src={item.photo}
-                                sx={{
-                                  width: 20,
-                                  height: 20,
-                                }}
-                              />
-                            ) : (
-                              <Avatar
-                                alt={
-                                  item.email
-                                    ? item.email.charAt(0).toUpperCase()
-                                    : ""
-                                }
-                                src={item.photo ? item.photo : "/alttext"}
-                                sx={{
-                                  width: 20,
-                                  height: 20,
-                                }}
-                              />
-                            )}
+                      {item.photo ? (
+                        <Avatar
+                          alt={
+                            item.email ? item.email.charAt(0).toUpperCase() : ""
+                          }
+                          src={item.photo}
+                          sx={{
+                            width: 20,
+                            height: 20,
+                          }}
+                        />
+                      ) : (
+                        <Avatar
+                          alt={
+                            item.email ? item.email.charAt(0).toUpperCase() : ""
+                          }
+                          src={item.photo ? item.photo : "/alttext"}
+                          sx={{
+                            width: 20,
+                            height: 20,
+                          }}
+                        />
+                      )}
                     </ListItemAvatar>
                     <ListItemText secondary={item.comment} />
                   </ListItem>
