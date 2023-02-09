@@ -86,14 +86,22 @@ export default function Comments() {
                   <CardHeader
                     avatar={
                       <Avatar aria-label="recipe">
-                        <>
-                          <img
-                            src={location.state.item.photo}
-                            width="40"
-                            height="40"
-                            alt={user.email}
-                          />
-                        </>
+                        {location.state.item.photo ? (
+                      <Avatar
+                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                        src={location.state.item.photo}
+                        sx={{ width: "40px", height: "40px", objectFit:"contain"}}
+                      />
+                    ) : (
+                      <Avatar
+                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
+                        src={location.state.item.photo ? location.state.item.photo : "/alttext"}
+                        sx={{
+                          width: "40px",
+                          height: "40px",
+                        }}
+                      />
+                    )}
                       </Avatar>
                     }
                     title={`Title: ${location.state.item.title}`}
@@ -171,12 +179,33 @@ export default function Comments() {
                 >
                   <ListItem>
                     <ListItemAvatar>
-                      <img
-                        src={item.photo}
-                        width="20"
-                        height="20"
-                        alt={item.email}
-                      />
+                    {item.photo ? (
+                              <Avatar
+                                alt={
+                                  item.email
+                                    ? item.email.charAt(0).toUpperCase()
+                                    : ""
+                                }
+                                src={item.photo}
+                                sx={{
+                                  width: 20,
+                                  height: 20,
+                                }}
+                              />
+                            ) : (
+                              <Avatar
+                                alt={
+                                  item.email
+                                    ? item.email.charAt(0).toUpperCase()
+                                    : ""
+                                }
+                                src={item.photo ? item.photo : "/alttext"}
+                                sx={{
+                                  width: 20,
+                                  height: 20,
+                                }}
+                              />
+                            )}
                     </ListItemAvatar>
                     <ListItemText secondary={item.comment} />
                   </ListItem>

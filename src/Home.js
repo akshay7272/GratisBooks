@@ -56,21 +56,21 @@ export default function Home() {
 
   // Inserting Comments in firebase database
 
-  const PostComment = async (event) => {
+  const PostComment = async (ID) => {
     updateDoc(
-      doc(db, `books/${event.target.name}`),
+      doc(db, `books/${ID}`),
       {
         comments: arrayUnion({
           userName: user.uid,
-          photo: user.photoURL,
+          photo: user.photoURL || null,
           email: user.email,
-          comment: comment[`t-${event.target.name}`],
+          comment: comment[`t-${ID}`],
         }),
       },
       { merge: true }
     )
       .then(() => {
-        <Alert severity="success">Comment Posted!</Alert>;
+        alert("Comment Posted");
         setComment({});
       })
       .catch((err) => console.log(err));
@@ -227,21 +227,21 @@ export default function Home() {
                       <span>No Comments</span>
                     )}
                   </CardActions>
-                  <CardActions style={{padding:"8px 14px"}}>
+                  <CardActions style={{padding:"8px 17px"}}>
                     <Avatar aria-label="recipe">
                     {user.photoURL ? (
                       <Avatar
                         alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
                         src={user.photoURL}
-                        sx={{ width: 100, height: 100, alignItems: "center" }}
+                        sx={{ width: "40px", height: "40px", objectFit:"contain"}}
                       />
                     ) : (
                       <Avatar
                         alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
                         src={user.photoURL ? user.photoURL : "/alttext"}
                         sx={{
-                          width: 40,
-                          height: 40,
+                          width: "40px",
+                          height: "40px",
                         }}
                       />
                     )}
@@ -259,8 +259,11 @@ export default function Home() {
                       onChange={handleChange}
                     />
                     {/* {comment} */}
-                    <Button onClick={PostComment} name={item.id}>
-                      <SendIcon color="primary" />
+                    <Button>
+                      <SendIcon color="primary" 
+                      onClick={() => PostComment(item.id)}
+                      name={item.id}
+                      />
                     </Button>
                   </CardActions>
                   <CardActions>
