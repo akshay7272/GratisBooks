@@ -201,6 +201,7 @@ export default function Comments() {
                     maxWidth: 360,
                     bgcolor: "background.paper",
                   }}
+                  className="comment-list"
                 >
                   <ListItem>
                     <ListItemAvatar>

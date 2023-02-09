@@ -47,6 +47,9 @@ code {
   }
   .comment-bd{
     width: 100% !important;
+    margin: auto !important ;
+  }
+  .comment-list{
     margin: auto !important;
   }
   .comment-bd h2{
