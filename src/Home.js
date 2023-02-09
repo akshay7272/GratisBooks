@@ -153,7 +153,7 @@ export default function Home() {
                                 alt={
                                   item.email
                                     ? item.email.charAt(0).toUpperCase()
-                                    : ""
+                                    : item.photo
                                 }
                                 src={item.photo}
                                 sx={{
@@ -227,24 +227,32 @@ export default function Home() {
                       <span>No Comments</span>
                     )}
                   </CardActions>
-                  <CardActions style={{padding:"8px 17px"}}>
+                  <CardActions style={{ padding: "8px 17px" }}>
                     <Avatar aria-label="recipe">
-                    {user.photoURL ? (
-                      <Avatar
-                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
-                        src={user.photoURL}
-                        sx={{ width: "40px", height: "40px", objectFit:"contain"}}
-                      />
-                    ) : (
-                      <Avatar
-                        alt={user.email ? user.email.charAt(0).toUpperCase() : ""}
-                        src={user.photoURL ? user.photoURL : "/alttext"}
-                        sx={{
-                          width: "40px",
-                          height: "40px",
-                        }}
-                      />
-                    )}
+                      {user.photoURL ? (
+                        <Avatar
+                          alt={
+                            user.email ? user.email.charAt(0).toUpperCase() : ""
+                          }
+                          src={user.photoURL}
+                          sx={{
+                            width: "40px",
+                            height: "40px",
+                            objectFit: "contain",
+                          }}
+                        />
+                      ) : (
+                        <Avatar
+                          alt={
+                            user.email ? user.email.charAt(0).toUpperCase() : ""
+                          }
+                          src={user.photoURL ? user.photoURL : "/alttext"}
+                          sx={{
+                            width: "40px",
+                            height: "40px",
+                          }}
+                        />
+                      )}
                     </Avatar>
 
                     <TextField
@@ -260,17 +268,18 @@ export default function Home() {
                     />
                     {/* {comment} */}
                     <Button>
-                      <SendIcon color="primary" 
-                      onClick={() => PostComment(item.id)}
-                      name={item.id}
+                      <SendIcon
+                        color="primary"
+                        onClick={() => PostComment(item.id)}
+                        name={item.id}
                       />
                     </Button>
                   </CardActions>
-                  <CardActions>
+                  <CardActions sx={{ padding: "2px 64px" }}>
                     {item.isBooked ? (
                       <Button disabled>Already Shared</Button>
                     ) : (
-                      <Button>Contact Seller {item.phone}</Button>
+                      <Button>Contact {item.phone}</Button>
                     )}
                   </CardActions>
                 </Card>
