@@ -12,6 +12,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import logo from "./assets/logo.png";
+import { updateProfile } from "firebase/auth";
+import {auth} from "./firebase";
 
 function Copyright(props) {
   return (
@@ -34,6 +36,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const { user, signUp } = UserAuth();
 
@@ -53,6 +56,7 @@ export default function Signup() {
         navigate("/login");
       } else {
         const user = await signUp(email, password).then(()=> alert('Email Verfication link send to your Mail')).catch(err => console.log(err));
+        updateProfile(auth.currentUser,{displayName:name})
         if (user) {
           setEmail("");
           setPassword("");
@@ -81,6 +85,17 @@ export default function Signup() {
           </Typography>
           <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  onChange={(e) => setName  (e.target.value)}
+                />
+              </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
