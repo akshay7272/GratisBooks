@@ -85,19 +85,19 @@ const Navbar = () => {
                     display: { xs: "block", md: "none" },
                   }}
                 >
-                  <Link to="/" underline="none">
+                  <Link to="/" style={{textDecoration:"none"}}>
                     <MenuItem key="Home">
                       <Typography>
                         Home
                       </Typography>
                     </MenuItem>
                   </Link>
-                  <Link to="/donate">
+                  <Link to="/donate" style={{textDecoration:"none"}}>
                     <MenuItem key="Donate book">
                       <Typography>Donate Book</Typography>
                     </MenuItem>
                   </Link>
-                  <Link to="/account">
+                  <Link to="/account" style={{textDecoration:"none"}}>
                     <MenuItem key="Profile">
                       <Typography href="/account">Profile</Typography>
                     </MenuItem>

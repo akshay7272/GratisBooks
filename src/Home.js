@@ -8,7 +8,6 @@ import {
   arrayRemove,
   arrayUnion,
 } from "firebase/firestore";
-import Alert from "@mui/material/Alert";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "./context/AuthContext";
@@ -147,37 +146,17 @@ export default function Home() {
                     <Typography variant="body2" color="text.secondary">
                       <CardHeader
                         avatar={
-                          <>
-                            {item.photo ? (
                               <Avatar
                                 alt={
                                   item.email
-                                    ? item.email.charAt(0).toUpperCase()
-                                    : item.photo
-                                }
-                                src={item.photo}
-                                sx={{
-                                  width: 40,
-                                  height: 40,
-                                  alignItems: "center",
-                                }}
-                              />
-                            ) : (
-                              <Avatar
-                                alt={
-                                  item.email
-                                    ? item.email.charAt(0).toUpperCase()
-                                    : ""
+                                    && item.email.charAt(0).toUpperCase()
                                 }
                                 src={item.photo ? item.photo : "/alttext"}
                                 sx={{
                                   width: 40,
                                   height: 40,
-                                  marginTop: "0.5rem",
                                 }}
                               />
-                            )}
-                          </>
                         }
                         title={`${item.title}`}
                         subheader={`${item.author} - ${item.yop}`}
