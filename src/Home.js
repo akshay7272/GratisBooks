@@ -137,7 +137,6 @@ export default function Home() {
                     sx={{
                       objectFit: "contain",
                       maxWidth: "100%",
-                      width: "350px",
                       backgroundColor: "#efefef",
                     }}
                   />
@@ -146,17 +145,16 @@ export default function Home() {
                     <Typography variant="body2" color="text.secondary">
                       <CardHeader
                         avatar={
-                              <Avatar
-                                alt={
-                                  item.email
-                                    && item.email.charAt(0).toUpperCase()
-                                }
-                                src={item.photo ? item.photo : "/alttext"}
-                                sx={{
-                                  width: 40,
-                                  height: 40,
-                                }}
-                              />
+                          <Avatar
+                            alt={
+                              item.email && item.email.charAt(0).toUpperCase()
+                            }
+                            src={item.photo ? item.photo : "/alttext"}
+                            sx={{
+                              width: 40,
+                              height: 40,
+                            }}
+                          />
                         }
                         title={`${item.title}`}
                         subheader={`${item.author} - ${item.yop}`}

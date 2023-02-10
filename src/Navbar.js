@@ -51,7 +51,15 @@ const Navbar = () => {
     console.log("user", user);
   });
   return (
-    <AppBar position="static" style={{ backgroundColor: "#009688" }}>
+    <AppBar
+      position="static"
+      style={{
+        backgroundColor: "#009688",
+        position: "sticky",
+        top: "0",
+        zIndex: "999",
+      }}
+    >
       {user && (
         <>
           <Container maxWidth="xxxl">
@@ -85,19 +93,17 @@ const Navbar = () => {
                     display: { xs: "block", md: "none" },
                   }}
                 >
-                  <Link to="/" style={{textDecoration:"none"}}>
+                  <Link to="/" style={{ textDecoration: "none" }}>
                     <MenuItem key="Home">
-                      <Typography>
-                        Home
-                      </Typography>
+                      <Typography>Home</Typography>
                     </MenuItem>
                   </Link>
-                  <Link to="/donate" style={{textDecoration:"none"}}>
+                  <Link to="/donate" style={{ textDecoration: "none" }}>
                     <MenuItem key="Donate book">
                       <Typography>Donate Book</Typography>
                     </MenuItem>
                   </Link>
-                  <Link to="/account" style={{textDecoration:"none"}}>
+                  <Link to="/account" style={{ textDecoration: "none" }}>
                     <MenuItem key="Profile">
                       <Typography href="/account">Profile</Typography>
                     </MenuItem>
@@ -123,37 +129,60 @@ const Navbar = () => {
                 />
               </Link>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-                <MenuItem key="Home">
-                  <Typography
-                    variant="h5"
-                    noWrap
-                    component="a"
-                    sx={{ mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
+                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                  <MenuItem key="Home">
+                    <Typography
+                      variant="h5"
+                      noWrap
+                      component="a"
+                      sx={{
+                        mr: 2,
+                        display: "block",
+                        color: "#ffff",
+                        textDecoration: "none",
+                      }}
+                    >
                       Home
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to="/donate" style={{ textDecoration: "none", color: "white" }}>
+                <Link
+                  to="/donate"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   <MenuItem key="Donate book">
                     <Typography
                       variant="h5"
                       noWrap
                       component="a"
-                      sx={{mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
-                        Donate Book
+                      sx={{
+                        mr: 2,
+                        display: "block",
+                        color: "#ffff",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Donate Book
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to="/account" style={{ textDecoration: "none", color: "white" }}>
+                <Link
+                  to="/account"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   <MenuItem key="Profile">
                     <Typography
                       variant="h5"
                       noWrap
                       component="a"
-                      sx={{ mr: 2,display: "block",color: "#ffff",textDecoration: "none",}}>
-                        Profile
-                      
+                      sx={{
+                        mr: 2,
+                        display: "block",
+                        color: "#ffff",
+                        textDecoration: "none",
+                      }}
+                    >
+                      Profile
                     </Typography>
                   </MenuItem>
                 </Link>
