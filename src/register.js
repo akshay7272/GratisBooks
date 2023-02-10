@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { UserAuth } from "./context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { isValidEmail } from "./utility";
+import ReCAPTCHA from "react-google-recaptcha";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -44,6 +45,9 @@ export default function Signup() {
     setErrorMsg(error);
   };
 
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -117,6 +121,13 @@ export default function Signup() {
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <ReCAPTCHA
+                  sitekey="6LcKcGckAAAAAJinfBATwOO0fDZPaJN40DBVKLji"
+                  secretkey="6LcKcGckAAAAAC7i8GUtUdif9FU2vlKFEcuWYX83"
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>
