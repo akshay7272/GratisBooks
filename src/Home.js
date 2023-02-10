@@ -27,8 +27,11 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import AddCommentRoundedIcon from "@mui/icons-material/AddCommentRounded";
+import Snackbar from "@mui/material/Snackbar";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function Home() {
+  const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const { user } = UserAuth();
   const [post, setPost] = useState([]);
@@ -49,9 +52,6 @@ export default function Home() {
 
   const [liked, setLiked] = useState({});
   const [comment, setComment] = useState({});
-  // useEffect(() => {
-  //   console.log(comment, "commentsss");
-  // });
 
   // Inserting Comments in firebase database
 
@@ -69,8 +69,8 @@ export default function Home() {
       { merge: true }
     )
       .then(() => {
-        alert("Comment Posted");
         setComment({});
+        handleClick();
       })
       .catch((err) => console.log(err));
   };
@@ -109,6 +109,32 @@ export default function Home() {
       })
       .catch((err) => console.log(err));
   };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   useEffect(() => {
     fetchPost();
   }, [liked, comment]);
@@ -251,6 +277,15 @@ export default function Home() {
                         name={item.id}
                       />
                     </Button>
+                  </CardActions>
+                  <CardActions>
+                    <Snackbar
+                      open={open}
+                      autoHideDuration={6000}
+                      onClose={handleClose}
+                      message="Comment Posted Successfully!"
+                      action={action}
+                    />
                   </CardActions>
                   <CardActions sx={{ padding: "2px 64px" }}>
                     {item.isBooked ? (
