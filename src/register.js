@@ -40,6 +40,7 @@ export default function Signup() {
   const [name, setName] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const { user, signUp } = UserAuth();
+  const [verfied , setVerified] = useState(false);
 
   const showError = (error) => {
     setErrorMsg(error);
@@ -47,6 +48,7 @@ export default function Signup() {
 
   function onChange(value) {
     console.log("Captcha value:", value);
+    setVerified(true);
   }
 
   const onSubmit = async (e) => {
@@ -125,8 +127,7 @@ export default function Signup() {
               </Grid>
               <Grid item xs={12}>
                 <ReCAPTCHA
-                  sitekey="6LcKcGckAAAAAJinfBATwOO0fDZPaJN40DBVKLji"
-                  secretkey="6LcKcGckAAAAAC7i8GUtUdif9FU2vlKFEcuWYX83"
+                  sitekey="6LeMhXckAAAAAJrd4EW_QSfKlVtF1_0ZYSnB_cyf"
                   onChange={onChange}
                 />
               </Grid>
@@ -137,7 +138,8 @@ export default function Signup() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-            >
+              disabled={!verfied}            
+              >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
