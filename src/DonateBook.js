@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
+import YearPicker from "react-year-picker";
 
 function DonateBook() {
   const { user } = UserAuth();
@@ -66,6 +67,11 @@ function DonateBook() {
   const handleOnChange = (value) => {
     setPhone(value);
   };
+  // Setting Year of Publication
+  const handleChange = (date) => {
+    setYop(date);
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -95,16 +101,16 @@ function DonateBook() {
               autoComplete=""
               autoFocus
             />
-            <TextField
+            <YearPicker
               margin="normal"
               required
               value={yop}
-              fullWidth
-              onChange={(text) => setYop(text.target.value)}
+              onChange={handleChange}
               label="Year of Publication"
-              name="email"
+              name="yop"
               autoComplete=""
               autoFocus
+              
             />
             <MuiPhoneNumber
               margin="normal"

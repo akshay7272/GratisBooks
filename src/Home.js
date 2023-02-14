@@ -149,6 +149,7 @@ export default function Home() {
                   className="card"
                   sx={{
                     maxHeight: "480px",
+                    maxWidth:"345px",
                     boxShadow: "1px 3px 20px rgb(0 0 0 / 0.3)",
                     borderRadius: "10px",
                     margin: "1rem",
