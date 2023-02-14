@@ -9,6 +9,10 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import { UserAuth } from "./context/AuthContext";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
@@ -31,6 +35,15 @@ const Account = () => {
   const label = { inputProps: { "aria-label": "Switch demo" } };
   const { user } = UserAuth();
   const [post, setPost] = useState([]);
+
+  //popup for delete post
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   // Fetching account details for perticular user posts
   const fetchPost = async () => {
     const qSnap = query(
@@ -195,6 +208,29 @@ const Account = () => {
                     </FormGroup>
                   </Typography>
 
+                  <div>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Are you sure you want to delete this item?"}
+                      </DialogTitle>
+                      <DialogContent></DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button
+                          onClick={() => DeleteItem(item.id, item.data.title)}
+                          autoFocus
+                        >
+                          Delete
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                  </div>
+
                   <Box
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
@@ -203,7 +239,7 @@ const Account = () => {
                       margin="normal"
                       component="label"
                       color="error"
-                      onClick={() => DeleteItem(item.id, item.data.title)}
+                      onClick={handleClickOpen}
                     >
                       <DeleteIcon />
                     </Button>
