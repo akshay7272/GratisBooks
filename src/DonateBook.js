@@ -12,14 +12,17 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
-import YearPicker from "react-year-picker";
+import { Stack, Typography } from "@mui/material";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider, YearPicker } from '@mui/x-date-pickers';
+import dayjs from "dayjs";
 
 function DonateBook() {
   const { user } = UserAuth();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [yop, setYop] = useState("");
+  const [yop, setYop] = useState(dayjs(''));
   const [phone, setPhone] = useState("");
   const [cover, setCover] = useState();
   const navigate = useNavigate();
@@ -61,6 +64,7 @@ function DonateBook() {
       navigate("/");
     } catch (err) {
       alert("someThing went wrong. try again");
+      console.log(err);
     }
   };
   // Setting phone no. value
@@ -69,7 +73,8 @@ function DonateBook() {
   };
   // Setting Year of Publication
   const handleChange = (date) => {
-    setYop(date);
+    setYop(date.$y);
+    console.log(date.$y);
   }
 
   return (
@@ -101,17 +106,20 @@ function DonateBook() {
               autoComplete=""
               autoFocus
             />
-            <YearPicker
-              margin="normal"
-              required
-              value={yop}
-              onChange={handleChange}
-              label="Year of Publication"
-              name="yop"
-              autoComplete=""
-              autoFocus
-              
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Stack spacing={3}>
+                <DatePicker
+                  views={['year']}
+                  fullWidth
+                  label="Year of Publication"
+                  value={yop}
+                  onChange={handleChange}
+                  name="yop"
+                  autoComplete=""
+                  renderInput={(e) => <TextField {...e}/>}
+                />
+              </Stack>
+            </LocalizationProvider>
             <MuiPhoneNumber
               margin="normal"
               required
