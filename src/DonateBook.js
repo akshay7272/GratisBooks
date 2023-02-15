@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Stack, Typography } from "@mui/material";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider, YearPicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from "dayjs";
 
 function DonateBook() {
@@ -106,20 +106,26 @@ function DonateBook() {
               autoComplete=""
               autoFocus
             />
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Stack spacing={3}>
-                <DatePicker
-                  views={['year']}
-                  fullWidth
-                  label="Year of Publication"
-                  value={yop}
-                  onChange={handleChange}
-                  name="yop"
-                  autoComplete=""
-                  renderInput={(e) => <TextField {...e}/>}
-                />
-              </Stack>
-            </LocalizationProvider>
+            <>
+              <div className="date">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Stack spacing={3}>
+                    <DatePicker
+                      className="date"
+                      views={['year']}
+                      fullWidth
+                      label="Year of Publication"
+                      value={yop}
+                      onChange={handleChange}
+                      name="yop"
+                      autoComplete=""
+                      renderInput={(e) => <TextField {...e}/>}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+              </div>
+            </>
+            
             <MuiPhoneNumber
               margin="normal"
               required

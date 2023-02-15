@@ -107,10 +107,10 @@ code {
 .picker-panel .header{
   justify-content: center !important;
 }
-.css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root.Mui-error{
+.Mui-error{
   color: rgba(0, 0, 0, 0.6) !important;
 }
-.css-1lwbda4-MuiStack-root{
+.date{
   width: 100%;
   vertical-align: top;
   margin-top: 16px;
