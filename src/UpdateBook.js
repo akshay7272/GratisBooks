@@ -4,15 +4,19 @@ import MuiPhoneNumber from "material-ui-phone-number-2";
 import { db } from "./firebase";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import { storage } from "./firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { useLocation } from "react-router-dom";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { Stack } from "@mui/material";
 
 const UpdateBook = () => {
   let location = useLocation();
@@ -40,6 +44,14 @@ const UpdateBook = () => {
   // Handling Phone value
   const handleOnChange = (value) => {
     setPhone(value);
+  };
+  // Handling Date Value
+  const handleChange = (date) => {
+    setYop(date.$y);
+  };
+  // Passing Year value to textfield
+  const check = (params) => {
+    return <TextField {...params} helperText={null} />;
   };
   // Updating Fields in Firebase Database
   const postData = async () => {
@@ -70,11 +82,20 @@ const UpdateBook = () => {
 
   return (
     <>
-     <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
-          <Box sx={{display: "flex", flexDirection: "column", alignItems:"center", paddingTop:"2rem"}}>
-            <Typography variant="h4" component="h2" >Welcome to update page</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingTop: "2rem",
+            }}
+          >
+            <Typography variant="h4" component="h2">
+              Welcome to update page
+            </Typography>
             {title}
             <TextField
               margin="normal"
@@ -98,17 +119,29 @@ const UpdateBook = () => {
               autoComplete=""
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              value={yop}
-              onChange={(text) => setYop(text.target.value)}
-              label="Year of Publication"
-              name="email"
-              autoComplete=""
-              autoFocus
-            />
+            <>
+              <div className="date">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <Stack>
+                    <DatePicker
+                      className="date"
+                      views={["year"]}
+                      fullWidth
+                      label="Year of Publication"
+                      value={yop}
+                      onChange={handleChange}
+                      name="yop"
+                      inputProps={{
+                        value: yop,
+                        disabled: true,
+                      }}
+                      renderInput={check}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+              </div>
+            </>
+
             <MuiPhoneNumber
               margin="normal"
               defaultCountry={"in"}
@@ -118,8 +151,19 @@ const UpdateBook = () => {
               variant="outlined"
               label="Phone Number"
             />
-            <Box sx={{display:"flex" , alignItems:"center", justifyContent:"center"}}>
-              <Button variant="contained" margin="normal"  component="label" sx={{marginTop:"16px", marginBottom:"8px", width:"80%"}}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                margin="normal"
+                component="label"
+                sx={{ marginTop: "16px", marginBottom: "8px", width: "80%" }}
+              >
                 <input
                   id="photo"
                   accept="image/*"
@@ -128,11 +172,27 @@ const UpdateBook = () => {
                 />
               </Button>
             </Box>
-            <Box sx={{display:"flex" , alignItems:"center",width:"70%", justifyContent:"space-between"}}>
-              <Button variant="contained" onClick={postData} sx={{marginTop:"16px", marginBottom:"8px"}}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                width: "70%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={postData}
+                sx={{ marginTop: "16px", marginBottom: "8px" }}
+              >
                 Update
               </Button>
-              <Button variant="contained" margin="normal" sx={{marginTop:"16px", marginBottom:"8px"}}>
+              <Button
+                variant="contained"
+                margin="normal"
+                sx={{ marginTop: "16px", marginBottom: "8px" }}
+                onClick={() => navigate("/account")}
+              >
                 Cancel
               </Button>
             </Box>
