@@ -77,14 +77,6 @@ function DonateBook() {
     setPhone(value);
   };
   // Setting Year of Publication
-  const handleChange = (date) => {
-    setYop(date.$y);
-    console.log(date.$y);
-  };
-  const check = (params) => {
-    console.log(params, "params", yop);
-    return <TextField {...params} helperText={null} />;
-  };
   useEffect(()=>{
     console.log(yop,'yop',typeof(yop))
   })

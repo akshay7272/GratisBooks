@@ -17,12 +17,15 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { Stack } from "@mui/material";
+import dayjs from "dayjs";
 
 const UpdateBook = () => {
+  let nowYear = new Date();
   let location = useLocation();
   const navigate = useNavigate();
   const [title, setTitle] = useState(location.state.item.data.title);
   const [author, setAuthor] = useState(location.state.item.data.author);
+  const [date, setDate] = useState(dayjs(`${nowYear.getFullYear()}-${nowYear.getMonth() + 1}-${nowYear.getDate()}`));
   const [yop, setYop] = useState(location.state.item.data.yop);
   const [phone, setPhone] = useState(location.state.item.data.phone);
   const [cover, setCover] = useState(location.state.item.data.cover);
@@ -44,14 +47,6 @@ const UpdateBook = () => {
   // Handling Phone value
   const handleOnChange = (value) => {
     setPhone(value);
-  };
-  // Handling Date Value
-  const handleChange = (date) => {
-    setYop(date.$y);
-  };
-  // Passing Year value to textfield
-  const check = (params) => {
-    return <TextField {...params} helperText={null} />;
   };
   // Updating Fields in Firebase Database
   const postData = async () => {
@@ -123,19 +118,19 @@ const UpdateBook = () => {
               <div className="date">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Stack>
-                    <DatePicker
-                      className="date"
-                      views={["year"]}
-                      fullWidth
-                      label="Year of Publication"
-                      value={yop}
-                      onChange={handleChange}
-                      name="yop"
+                  <DatePicker
+                     className="date"
+                      views={['year']}
+                      label="Year only"
+                      value={date}
+                      onChange={(newValue) => {
+                        setDate(newValue);
+                        setYop(newValue.$y)
+                      }}
                       inputProps={{
-                        value: yop,
                         disabled: true,
                       }}
-                      renderInput={check}
+                      renderInput={(params) => <TextField {...params} helperText={null} />}
                     />
                   </Stack>
                 </LocalizationProvider>
