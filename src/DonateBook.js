@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import Box from "@mui/material/Box";
 import MuiPhoneNumber from "material-ui-phone-number-2";
@@ -24,7 +24,8 @@ function DonateBook() {
   const { user } = UserAuth();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [yop, setYop] = useState(dayjs(nowYear.getFullYear()));
+  const [date, setDate] = useState(dayjs(`${nowYear.getFullYear()}-${nowYear.getMonth() + 1}-${nowYear.getDate()}`));
+  const [yop, setYop] = useState(nowYear.getFullYear());
   const [phone, setPhone] = useState("");
   const [cover, setCover] = useState();
   const [imgLoading, setImgLoading] = useState(false);
@@ -84,6 +85,9 @@ function DonateBook() {
     console.log(params, "params", yop);
     return <TextField {...params} helperText={null} />;
   };
+  useEffect(()=>{
+    console.log(yop,'yop',typeof(yop))
+  })
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -127,18 +131,18 @@ function DonateBook() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Stack>
                     <DatePicker
-                      className="date"
-                      views={["year"]}
-                      fullWidth
-                      label="Year of Publication"
-                      value={yop}
-                      onChange={handleChange}
-                      name="yop"
+                     className="date"
+                      views={['year']}
+                      label="Year only"
+                      value={date}
+                      onChange={(newValue) => {
+                        setDate(newValue);
+                        setYop(newValue.$y)
+                      }}
                       inputProps={{
-                        value: yop,
                         disabled: true,
                       }}
-                      renderInput={check}
+                      renderInput={(params) => <TextField {...params} helperText={null} />}
                     />
                   </Stack>
                 </LocalizationProvider>
