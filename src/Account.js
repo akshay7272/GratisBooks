@@ -203,7 +203,7 @@ const Account = () => {
                             onChange={() => Given(item.id, item.data.isBooked)}
                           />
                         }
-                        label="share book"
+                        label="Donated"
                       />
                     </FormGroup>
                   </Typography>

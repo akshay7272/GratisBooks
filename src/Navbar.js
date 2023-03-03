@@ -108,6 +108,11 @@ const Navbar = () => {
                       <Typography href="/account">Profile</Typography>
                     </MenuItem>
                   </Link>
+                  <Link to="/about" style={{ textDecoration: "none" }}>
+                    <MenuItem key="About">
+                      <Typography href="/about">About</Typography>
+                    </MenuItem>
+                  </Link>
                 </Menu>
                 <Link to="/">
                   <Box
@@ -183,6 +188,26 @@ const Navbar = () => {
                       }}
                     >
                       Profile
+                    </Typography>
+                  </MenuItem>
+                </Link>
+                <Link
+                  to="/about"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
+                  <MenuItem key="Profile">
+                    <Typography
+                      variant="h5"
+                      noWrap
+                      component="a"
+                      sx={{
+                        mr: 2,
+                        display: "block",
+                        color: "#ffff",
+                        textDecoration: "none",
+                      }}
+                    >
+                      About
                     </Typography>
                   </MenuItem>
                 </Link>

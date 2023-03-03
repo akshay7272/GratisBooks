@@ -65,7 +65,7 @@ function DonateBook() {
         comments: [],
         isBooked: false,
       });
-      alert("posted successfully");
+      alert("Thank You! Posted successfully");
       navigate("/");
     } catch (err) {
       alert("someThing went wrong. try again");

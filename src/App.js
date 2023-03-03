@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import Protected from "./Protected";
 import Comments from "./Comments";
 import UpdateBook from "./UpdateBook";
+import About from "./About";
 import { AuthContextProvider } from "./context/AuthContext";
 
 function App() {
@@ -33,6 +34,14 @@ function App() {
                 </Protected>
               }
               path="/donate"
+            ></Route>
+            <Route
+              element={
+                <Protected>
+                  <About />
+                </Protected>
+              }
+              path="/about"
             ></Route>
             <Route element={<Login />} path="/login"></Route>
             <Route element={<Signup />} path="/register"></Route>
