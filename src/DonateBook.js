@@ -24,7 +24,11 @@ function DonateBook() {
   const { user } = UserAuth();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const [date, setDate] = useState(dayjs(`${nowYear.getFullYear()}-${nowYear.getMonth() + 1}-${nowYear.getDate()}`));
+  const [date, setDate] = useState(
+    dayjs(
+      `${nowYear.getFullYear()}-${nowYear.getMonth() + 1}-${nowYear.getDate()}`
+    )
+  );
   const [yop, setYop] = useState(nowYear.getFullYear());
   const [phone, setPhone] = useState("");
   const [cover, setCover] = useState();
@@ -77,9 +81,9 @@ function DonateBook() {
     setPhone(value);
   };
   // Setting Year of Publication
-  useEffect(()=>{
-    console.log(yop,'yop',typeof(yop))
-  })
+  useEffect(() => {
+    console.log(yop, "yop", typeof yop);
+  });
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -123,18 +127,20 @@ function DonateBook() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <Stack>
                     <DatePicker
-                     className="date"
-                      views={['year']}
+                      className="date"
+                      views={["year"]}
                       label="Year only"
                       value={date}
                       onChange={(newValue) => {
                         setDate(newValue);
-                        setYop(newValue.$y)
+                        setYop(newValue.$y);
                       }}
                       inputProps={{
                         disabled: true,
                       }}
-                      renderInput={(params) => <TextField {...params} helperText={null} />}
+                      renderInput={(params) => (
+                        <TextField {...params} helperText={null} />
+                      )}
                     />
                   </Stack>
                 </LocalizationProvider>
@@ -176,6 +182,7 @@ function DonateBook() {
               {imgLoading && <CircularProgress />}
               {cover && (
                 <img
+                  alt="cover"
                   src={cover}
                   width="50"
                   height="50"
