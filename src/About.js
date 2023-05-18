@@ -26,8 +26,8 @@ export default function About() {
           margin: "15px 0 15px 0",
         }}
       >
-        Gratis Books is an initiative of gai Technologies to bridge the gap
-        between book owners and the needy.
+        Gratis Books is an initiative to bridge the gap between book owners and
+        the needy.
       </Typography>
 
       <Typography
